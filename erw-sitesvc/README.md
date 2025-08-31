@@ -1,20 +1,20 @@
-# ERW Site Scoring Service v2.0
+# ERW City Viability Analysis Platform v3.0
 
-🌱 **Enhanced Rock Weathering Site Assessment Platform** - A comprehensive Spring Boot application with interactive web interface for evaluating ERW project viability using real-world industry data (2024).
+🌍 **Enhanced Rock Weathering City-Scale Viability Analysis** - A comprehensive Spring Boot application with interactive web interface for evaluating ERW project viability at metropolitan scale using cutting-edge 2025 industry research and 20-parameter assessment.
 
 ## 🎯 Overview
 
-This service evaluates Enhanced Rock Weathering (ERW) sites for carbon removal projects using industry-standard parameters from leading companies like Lithos Carbon and UNDO. It provides detailed environmental impact analysis, cost breakdowns, and sustainability grading based on 2024 research data.
+This platform analyzes Enhanced Rock Weathering (ERW) viability for major cities worldwide using industry-standard parameters from leading companies like Lithos Carbon, UNDO Carbon, and InPlanet. It provides detailed environmental impact analysis, cost breakdowns, and sustainability grading based on 2025 research with advanced parameters including soil organic carbon, regulatory stability, and carbon market accessibility.
 
 ## ✨ Key Features
 
 - **🗺️ Interactive Map Interface** - Visual site exploration with detailed analysis panels
-- **📊 Real-time Scoring** - 12-parameter comprehensive site evaluation 
+- **📊 Real-time Scoring** - 20-parameter comprehensive city viability evaluation 
 - **💰 Economic Analysis** - Material, transport, labor, and equipment cost calculations
 - **🌍 Environmental Impact** - CO₂ emissions vs removal analysis with efficiency metrics
 - **📈 Industry Data** - Based on 2024 research from leading ERW companies
 - **🎯 Sustainability Grading** - A+ to F rating system using industry benchmarks
-- **🌐 15 Global Sites** - Predefined sites across Madagascar, South India, Brazil, and Australia
+- **🌐 15 Global Cities** - Major metropolitan areas across India, USA, Europe, Australia, and Africa
 
 ## 🚀 Quick Start
 
@@ -43,8 +43,8 @@ export JAVA_HOME=/opt/homebrew/opt/openjdk@21  # macOS with Homebrew
 - **📊 Score Distribution** - Visual charts showing site performance
 - **🗺️ Interactive Map** - Click sites for detailed analysis panels
 
-### Calculator
-- **12 Parameter Input** - Environmental, logistics, and economic factors
+### Metropolitan Calculator
+- **20 Parameter Input** - Environmental, logistics, economic, and advanced regulatory factors
 - **🎯 Real-time Results** - Instant scoring with detailed breakdowns
 - **💡 Example Data** - Load realistic South Indian site parameters
 - **📋 Comprehensive Reports** - Environmental impact, costs, and sustainability grades
@@ -54,24 +54,33 @@ export JAVA_HOME=/opt/homebrew/opt/openjdk@21  # macOS with Homebrew
 - **📋 Complete Examples** - Copy-paste ready API calls
 - **✅ Health Monitoring** - Service status and endpoint availability
 
-## 📊 Industry-Based Scoring (2024 Data)
+## 📊 Industry-Based Scoring (2025 Advanced Research)
 
-### Environmental Factors (40% weight)
-- **Soil pH** - Optimal range around 7.5 for basalt weathering
-- **Temperature** - 25°C optimal with weathering efficiency curves  
-- **Rainfall** - 1200mm/year optimal for enhanced weathering rates
+### Environmental Factors (35% weight)
+- **Soil pH** - Optimal range around 7.0 for enhanced basalt weathering
+- **Temperature** - 28°C tropical optimum with 2x efficiency bonus
+- **Rainfall** - 1500mm/year optimal with variability assessment
+- **Soil Organic Carbon** - 3% optimal for enhanced weathering reactions
+- **Soil Moisture** - 35-45% range for optimal mineral-soil interaction
 
-### Logistics Factors (35% weight)
+### Logistics Factors (30% weight)
 - **Road Access** - Distance penalties for remote locations
-- **Basalt Transport** - 540km maximum viable distance (research-backed)
-- **Infrastructure Quality** - Local capacity for project implementation
-- **Basalt Availability** - Regional rock resource accessibility
+- **Basalt Transport** - 540km maximum viable distance (2025 research-backed)
+- **Infrastructure Quality** - Metropolitan capacity for large-scale implementation
+- **Basalt Availability** - Regional alkaline rock resource accessibility
+- **Monitoring Capability** - MRV infrastructure for verification protocols
 
 ### Economic Factors (25% weight)
-- **Land Availability** - Scale potential for meaningful carbon impact
-- **Population Density** - Social impact and operational complexity
-- **Energy Costs** - Local electricity rates for processing operations
-- **Labor Costs** - Regional wage rates for project implementation
+- **Agricultural Land Scale** - Metropolitan-scale potential up to 20M hectares
+- **Population Density** - Urban-rural interface complexity
+- **Energy Costs** - Local electricity rates for grinding/processing
+- **Labor Costs** - Regional wage rates up to $200/hour in expensive areas
+
+### Advanced Factors (10% weight - 2025 Research)
+- **Regulatory Stability** - Policy environment for carbon removal projects
+- **Carbon Market Access** - Access to voluntary carbon markets and standards
+- **Elevation Impact** - Altitude effects on weathering kinetics
+- **Soil CEC** - Cation exchange capacity for enhanced reactions
 
 ## 💰 Cost Analysis (2024 Benchmarks)
 
@@ -210,11 +219,13 @@ src/
 
 ## 🔬 Research-Based Implementation
 
-### 2024 Industry Data Sources
-- **Lithos Carbon**: 3:1 basalt to CO₂ ratio, field applications
-- **UNDO Carbon**: 200,000+ tons applied, cost targeting
-- **Academic Research**: 540km transport limit, grinding energy costs
-- **Market Analysis**: $80-180/ton competitive range
+### 2025 Industry Data Sources
+- **Lithos Carbon**: 3:1 basalt to CO₂ ratio, field applications, MRV protocols
+- **UNDO Carbon**: 200,000+ tons applied, cost optimization research
+- **InPlanet**: Tropical climate 2x efficiency data, Brazil field trials
+- **Frontier Climate**: $57-180/ton verified contract pricing
+- **Academic Research**: Enhanced weathering kinetics, soil interaction mechanisms
+- **Isometric Protocol**: Industry-standard verification methodology
 
 ### Key Research Findings Implemented
 - ✅ Transport distance critical limitation (540km max)
@@ -227,10 +238,10 @@ src/
 
 ### Environment Variables
 ```bash
-# Database (optional - defaults provided)
+# Database (required - no defaults for security)
 DB_URL=jdbc:postgresql://localhost:5432/erwdb
-DB_USER=erw
-DB_PASS=erwpass
+DB_USER=your_db_user
+DB_PASS=your_secure_password
 
 # Java (required for non-standard installations)
 JAVA_HOME=/path/to/java-21
@@ -330,4 +341,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Built with ❤️ for the Enhanced Rock Weathering industry and climate tech community**
 
-*Version 2.0 - Industry-grade ERW site assessment with comprehensive web interface*
+*Version 3.0 - Advanced ERW city viability analysis with 20-parameter assessment and 2025 industry research*

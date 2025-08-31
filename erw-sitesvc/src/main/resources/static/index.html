@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Enhanced Rock Weathering Site Assessment Platform - Comprehensive ERW project evaluation with industry-standard parameters, cost analysis, and sustainability grading">
-    <meta name="keywords" content="Enhanced Rock Weathering, ERW, Carbon Removal, Climate Tech, Basalt, Site Assessment, Sustainability">
-    <meta name="author" content="ERW Site Assessment Platform">
+    <meta name="description" content="ERW City Viability Analysis Platform - Metropolitan ERW potential assessment for major world cities and their agricultural hinterlands">
+    <meta name="keywords" content="Enhanced Rock Weathering, ERW, Carbon Removal, Climate Tech, Metropolitan Analysis, Cities, Agricultural Policy">
+    <meta name="author" content="ERW City Viability Analysis Platform">
     
-    <title>ERW Site Scoring Service v2.0 - Enhanced Rock Weathering Assessment Platform</title>
+    <title>ERW City Viability Analysis Platform v2.0 - Metropolitan ERW Assessment</title>
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/styles.css">
@@ -21,21 +21,21 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1><i class="fas fa-seedling"></i> ERW Site Scoring Service</h1>
-            <p>Enhanced Rock Weathering Site Assessment Platform</p>
+            <h1><i class="fas fa-city"></i> ERW City Viability Analysis Platform</h1>
+            <p>Metropolitan ERW Potential Assessment for Major World Cities</p>
         </div>
     </header>
 
     <nav class="nav">
         <div class="container">
             <button class="nav-btn active" data-tab="dashboard">
-                <i class="fas fa-chart-line"></i> Dashboard
+                <i class="fas fa-chart-line"></i> City Rankings
             </button>
             <button class="nav-btn" data-tab="map">
-                <i class="fas fa-map-marked-alt"></i> Site Map
+                <i class="fas fa-globe-americas"></i> Global Cities Map
             </button>
             <button class="nav-btn" data-tab="calculator">
-                <i class="fas fa-calculator"></i> Score Calculator
+                <i class="fas fa-calculator"></i> Metropolitan Analysis
             </button>
             <button class="nav-btn" data-tab="api">
                 <i class="fas fa-code"></i> API Docs
@@ -49,32 +49,32 @@
             <div id="dashboard" class="tab-content active">
                 <div class="dashboard-grid">
                     <div class="stats-card">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Total Sites</h3>
+                        <i class="fas fa-city"></i>
+                        <h3>Agricultural Cities</h3>
                         <span class="stat-number" id="totalSites">0</span>
                     </div>
                     <div class="stats-card">
                         <i class="fas fa-star"></i>
-                        <h3>Average Score</h3>
+                        <h3>Average ERW Score</h3>
                         <span class="stat-number" id="avgScore">0.00</span>
                     </div>
                     <div class="stats-card">
-                        <i class="fas fa-globe-africa"></i>
-                        <h3>Regions</h3>
+                        <i class="fas fa-globe"></i>
+                        <h3>Countries</h3>
                         <span class="stat-number" id="totalRegions">0</span>
                     </div>
                 </div>
 
                 <div class="content-grid">
                     <div class="card">
-                        <h2><i class="fas fa-list"></i> ERW Candidate Sites</h2>
+                        <h2><i class="fas fa-ranking-star"></i> Global ERW City Rankings</h2>
                         <div class="filters">
                             <select id="regionFilter">
-                                <option value="">All Regions</option>
+                                <option value="">All Countries</option>
                             </select>
                             <select id="sortBy">
-                                <option value="score">Sort by Score</option>
-                                <option value="name">Sort by Name</option>
+                                <option value="score">Sort by ERW Score</option>
+                                <option value="name">Sort by City Name</option>
                                 <option value="id">Sort by ID</option>
                             </select>
                             <select id="sortDir">
@@ -83,12 +83,12 @@
                             </select>
                         </div>
                         <div class="sites-list" id="sitesList">
-                            <div class="loading">Loading sites...</div>
+                            <div class="loading">Loading agricultural cities...</div>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h2><i class="fas fa-chart-bar"></i> Site Scores Distribution</h2>
+                        <h2><i class="fas fa-chart-bar"></i> City ERW Score Distribution</h2>
                         <div class="chart-container">
                             <canvas id="scoreChart" width="400" height="200"></canvas>
                         </div>
@@ -100,12 +100,12 @@
             <div id="map" class="tab-content">
                 <div class="map-container-wrapper">
                     <div class="card map-card">
-                        <h2><i class="fas fa-map-marked-alt"></i> ERW Sites Map</h2>
+                        <h2><i class="fas fa-globe-americas"></i> Global ERW Cities Map</h2>
                         <div class="map-content">
                             <div id="mapContainer" style="height: 500px;"></div>
                             <div id="siteAnalysisPanel" class="site-analysis-panel hidden">
                                 <div class="panel-header">
-                                    <h3 id="panelSiteName">Site Analysis</h3>
+                                    <h3 id="panelSiteName">City Analysis</h3>
                                     <button class="panel-close-btn" onclick="app.closeSitePanel()">
                                         <i class="fas fa-times"></i>
                                     </button>
@@ -113,7 +113,7 @@
                                 <div class="panel-content">
                                     <div class="loading-panel">
                                         <i class="fas fa-spinner fa-spin"></i>
-                                        <p>Loading site analysis...</p>
+                                        <p>Loading metropolitan analysis...</p>
                                     </div>
                                 </div>
                             </div>
@@ -121,15 +121,15 @@
                         <div class="map-legend">
                             <div class="legend-item">
                                 <span class="legend-color high"></span>
-                                <span>High Score (0.7-1.0)</span>
+                                <span>High ERW Potential (0.7-1.0)</span>
                             </div>
                             <div class="legend-item">
                                 <span class="legend-color medium"></span>
-                                <span>Medium Score (0.4-0.69)</span>
+                                <span>Medium ERW Potential (0.4-0.69)</span>
                             </div>
                             <div class="legend-item">
                                 <span class="legend-color low"></span>
-                                <span>Low Score (0.0-0.39)</span>
+                                <span>Low ERW Potential (0.0-0.39)</span>
                             </div>
                         </div>
                     </div>
@@ -140,16 +140,16 @@
             <div id="calculator" class="tab-content">
                 <div class="content-grid">
                     <div class="card">
-                        <h2><i class="fas fa-calculator"></i> Site Score Calculator</h2>
+                        <h2><i class="fas fa-calculator"></i> Metropolitan ERW Analysis</h2>
                         <form id="scoringForm">
-                            <h3><i class="fas fa-map-marker-alt"></i> Location Parameters</h3>
+                            <h3><i class="fas fa-city"></i> Metropolitan Area Parameters</h3>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="latitude">
                                         <i class="fas fa-map-pin"></i> Latitude
                                     </label>
                                     <input type="number" id="latitude" step="0.000001" placeholder="e.g., 12.970" required>
-                                    <span class="help-text">Geographic latitude coordinate</span>
+                                    <span class="help-text">Metropolitan area center latitude</span>
                                 </div>
                                 
                                 <div class="form-group">
@@ -157,18 +157,18 @@
                                         <i class="fas fa-map-pin"></i> Longitude
                                     </label>
                                     <input type="number" id="longitude" step="0.000001" placeholder="e.g., 77.590" required>
-                                    <span class="help-text">Geographic longitude coordinate</span>
+                                    <span class="help-text">Metropolitan area center longitude</span>
                                 </div>
                             </div>
 
-                            <h3><i class="fas fa-leaf"></i> Environmental Parameters</h3>
+                            <h3><i class="fas fa-leaf"></i> Regional Climate Parameters</h3>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="rainfallMm">
                                         <i class="fas fa-cloud-rain"></i> Annual Rainfall (mm)
                                     </label>
                                     <input type="number" id="rainfallMm" min="0" placeholder="e.g., 1200" required>
-                                    <span class="help-text">Average annual precipitation</span>
+                                    <span class="help-text">Regional average annual precipitation</span>
                                 </div>
                                 
                                 <div class="form-group">
@@ -176,7 +176,7 @@
                                         <i class="fas fa-vial"></i> Soil pH
                                     </label>
                                     <input type="number" id="soilPh" min="0" max="14" step="0.1" placeholder="e.g., 7.2" required>
-                                    <span class="help-text">Soil acidity/alkalinity (0-14)</span>
+                                    <span class="help-text">Regional agricultural soil pH average</span>
                                 </div>
 
                                 <div class="form-group">
@@ -184,53 +184,53 @@
                                         <i class="fas fa-thermometer-half"></i> Average Temperature (°C)
                                     </label>
                                     <input type="number" id="avgTemperatureC" min="-50" max="60" step="0.1" placeholder="e.g., 25.5" required>
-                                    <span class="help-text">Average annual temperature</span>
+                                    <span class="help-text">Regional average annual temperature</span>
                                 </div>
                             </div>
 
-                            <h3><i class="fas fa-truck"></i> Logistics Parameters</h3>
+                            <h3><i class="fas fa-truck"></i> Urban-Rural Logistics</h3>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="distanceToRoadKm">
-                                        <i class="fas fa-road"></i> Distance to Road (km)
+                                        <i class="fas fa-road"></i> Farm Road Access (km)
                                     </label>
                                     <input type="number" id="distanceToRoadKm" min="0" step="0.1" placeholder="e.g., 5.5" required>
-                                    <span class="help-text">Distance to nearest road access</span>
+                                    <span class="help-text">Average distance to farm access roads</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="basaltTransportDistanceKm">
-                                        <i class="fas fa-shipping-fast"></i> Basalt Transport Distance (km)
+                                        <i class="fas fa-shipping-fast"></i> Quarry Distance (km)
                                     </label>
                                     <input type="number" id="basaltTransportDistanceKm" min="0" max="1000" step="1" placeholder="e.g., 150" required>
-                                    <span class="help-text">Distance from basalt quarry</span>
+                                    <span class="help-text">Distance to nearest basalt quarry</span>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="basaltAvailabilityIndex">
-                                        <i class="fas fa-mountain"></i> Basalt Availability Index
+                                        <i class="fas fa-mountain"></i> Rock Resource Index
                                     </label>
                                     <input type="number" id="basaltAvailabilityIndex" min="0" max="1" step="0.01" placeholder="e.g., 0.8" required>
-                                    <span class="help-text">Rock availability (0.0 - 1.0)</span>
+                                    <span class="help-text">Regional basalt availability (0.0 - 1.0)</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="infrastructureQualityIndex">
-                                        <i class="fas fa-building"></i> Infrastructure Quality Index
+                                        <i class="fas fa-building"></i> Transport Infrastructure
                                     </label>
                                     <input type="number" id="infrastructureQualityIndex" min="0" max="1" step="0.01" placeholder="e.g., 0.75" required>
-                                    <span class="help-text">Local infrastructure quality (0.0 - 1.0)</span>
+                                    <span class="help-text">Regional transport network quality (0.0 - 1.0)</span>
                                 </div>
                             </div>
 
-                            <h3><i class="fas fa-dollar-sign"></i> Economic Parameters</h3>
+                            <h3><i class="fas fa-dollar-sign"></i> Regional Economic Factors</h3>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="agriculturalLandHectares">
-                                        <i class="fas fa-seedling"></i> Agricultural Land (hectares)
+                                        <i class="fas fa-seedling"></i> Agricultural Hinterland (hectares)
                                     </label>
-                                    <input type="number" id="agriculturalLandHectares" min="0" max="100000" step="1" placeholder="e.g., 500" required>
-                                    <span class="help-text">Available agricultural land area</span>
+                                    <input type="number" id="agriculturalLandHectares" min="0" max="20000000" step="1" placeholder="e.g., 1500000" required>
+                                    <span class="help-text">Total farmland within 100km transport range</span>
                                 </div>
 
                                 <div class="form-group">
@@ -238,7 +238,7 @@
                                         <i class="fas fa-users"></i> Population Density (people/km²)
                                     </label>
                                     <input type="number" id="populationDensityPerKm2" min="0" max="10000" step="1" placeholder="e.g., 150" required>
-                                    <span class="help-text">Local population density</span>
+                                    <span class="help-text">Regional population density</span>
                                 </div>
 
                                 <div class="form-group">
@@ -246,35 +246,102 @@
                                         <i class="fas fa-bolt"></i> Energy Cost ($/kWh)
                                     </label>
                                     <input type="number" id="energyCostPerKWh" min="0.01" max="1.0" step="0.01" placeholder="e.g., 0.12" required>
-                                    <span class="help-text">Local electricity cost</span>
+                                    <span class="help-text">Regional electricity cost</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="laborCostPerHour">
-                                        <i class="fas fa-hard-hat"></i> Labor Cost ($/hour)
+                                        <i class="fas fa-hard-hat"></i> Agricultural Labor ($/hour)
                                     </label>
-                                    <input type="number" id="laborCostPerHour" min="1" max="100" step="0.5" placeholder="e.g., 8.5" required>
-                                    <span class="help-text">Local labor hourly rate</span>
+                                    <input type="number" id="laborCostPerHour" min="1" max="200" step="0.5" placeholder="e.g., 18.5" required>
+                                    <span class="help-text">Regional agricultural wage rate</span>
+                                </div>
+                            </div>
+
+                            <h3><i class="fas fa-microscope"></i> Advanced Environmental Parameters (2025 Research)</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="soilOrganicCarbonPercent">
+                                        <i class="fas fa-seedling"></i> Soil Organic Carbon (%)
+                                    </label>
+                                    <input type="number" id="soilOrganicCarbonPercent" min="0" max="100" step="0.1" placeholder="e.g., 3.5" required>
+                                    <span class="help-text">Soil organic carbon percentage</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="elevationMeters">
+                                        <i class="fas fa-mountain"></i> Elevation (meters)
+                                    </label>
+                                    <input type="number" id="elevationMeters" min="0" max="3000" step="1" placeholder="e.g., 400" required>
+                                    <span class="help-text">Site elevation above sea level</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soilMoisturePercent">
+                                        <i class="fas fa-tint"></i> Soil Moisture (%)
+                                    </label>
+                                    <input type="number" id="soilMoisturePercent" min="10" max="90" step="1" placeholder="e.g., 40" required>
+                                    <span class="help-text">Average soil moisture content</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="annualRainfallVariability">
+                                        <i class="fas fa-chart-line"></i> Rainfall Variability (mm)
+                                    </label>
+                                    <input type="number" id="annualRainfallVariability" min="0" max="5000" step="10" placeholder="e.g., 200" required>
+                                    <span class="help-text">Annual rainfall standard deviation</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="regulatoryStabilityIndex">
+                                        <i class="fas fa-balance-scale"></i> Regulatory Stability
+                                    </label>
+                                    <input type="number" id="regulatoryStabilityIndex" min="0" max="1" step="0.01" placeholder="e.g., 0.8" required>
+                                    <span class="help-text">Government/regulatory stability (0.0 - 1.0)</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="carbonMarketAccessibility">
+                                        <i class="fas fa-exchange-alt"></i> Carbon Market Access
+                                    </label>
+                                    <input type="number" id="carbonMarketAccessibility" min="0" max="1" step="0.01" placeholder="e.g., 0.9" required>
+                                    <span class="help-text">Access to carbon credit markets (0.0 - 1.0)</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="soilCecMeqPer100g">
+                                        <i class="fas fa-atom"></i> Soil CEC (meq/100g)
+                                    </label>
+                                    <input type="number" id="soilCecMeqPer100g" min="0" max="50" step="0.1" placeholder="e.g., 15" required>
+                                    <span class="help-text">Cation exchange capacity</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="monitoringCapabilityIndex">
+                                        <i class="fas fa-search"></i> Monitoring Capability
+                                    </label>
+                                    <input type="number" id="monitoringCapabilityIndex" min="0" max="1" step="0.01" placeholder="e.g., 0.7" required>
+                                    <span class="help-text">MRV infrastructure quality (0.0 - 1.0)</span>
                                 </div>
                             </div>
                             
                             <div class="form-actions">
                                 <button type="submit" class="btn-primary">
-                                    <i class="fas fa-calculator"></i> Calculate Enhanced Score
+                                    <i class="fas fa-calculator"></i> Analyze Metropolitan ERW Potential
                                 </button>
                                 <button type="button" class="btn-secondary" onclick="app.loadExampleData()">
-                                    <i class="fas fa-lightbulb"></i> Load Example Data
+                                    <i class="fas fa-lightbulb"></i> Load Des Moines Example
                                 </button>
                             </div>
                         </form>
                     </div>
 
                     <div class="card">
-                        <h2><i class="fas fa-chart-pie"></i> Score Result</h2>
+                        <h2><i class="fas fa-chart-pie"></i> Metropolitan ERW Analysis Result</h2>
                         <div id="scoreResult" class="score-result">
                             <div class="no-result">
                                 <i class="fas fa-info-circle"></i>
-                                <p>Fill out the form and click "Calculate Score" to see results.</p>
+                                <p>Fill out the metropolitan parameters and click "Analyze" to see ERW potential results.</p>
                             </div>
                         </div>
                     </div>
@@ -344,15 +411,14 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 ERW Site Scoring Service. Enhanced Rock Weathering for Carbon Removal.</p>
+            <p>&copy; 2025 ERW City Viability Analysis Platform. Metropolitan ERW Assessment for Policy and Investment.</p>
         </div>
     </footer>
 
     <!-- External Dependencies -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"
-            integrity="sha256-vHI6EUC7w4C2ApnfOcRXQe1fX2Y4gqKzGKzJWIKYHaQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     
     <!-- Custom JavaScript -->
     <script src="js/app.js" defer></script>

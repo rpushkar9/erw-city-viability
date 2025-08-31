@@ -1,6 +1,15 @@
+# ERW City Viability Analysis Platform - Git Ignore
+
+### Java & Maven ###
 target/
 .mvn/wrapper/maven-wrapper.jar
 *.iml
+*.jar
+*.war
+*.ear
+*.class
+
+### IDE ###
 .idea/
 *.ipr
 *.iws
@@ -8,6 +17,38 @@ target/
 .classpath
 .settings/
 .vscode/
+*.sublime-workspace
+*.sublime-project
+
+### OS ###
 .DS_Store
-*.log
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+### Environment & Security ###
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+logs/
+
+### Database ###
+*.db
+*.sqlite
+*.sqlite3
+
+### Temporary Files ###
+*.tmp
+*.temp
+*~
+.*.swp
+.*.swo
+
+### Application Specific ###
+application-local.yml
+application-dev.yml
+application-prod.yml

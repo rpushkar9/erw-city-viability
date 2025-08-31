@@ -35,8 +35,11 @@ class ERWApp {
         await this.loadSites();
         this.setupFilters();
         this.initializeMap();
-        this.createChart();
-        this.updateDashboard();
+        // Delay chart creation to ensure DOM is ready and sites are loaded
+        setTimeout(() => {
+            this.createChart();
+            this.updateDashboard();
+        }, 200);
     }
 
     // Navigation Setup
@@ -184,10 +187,11 @@ class ERWApp {
         }
     }
 
-    // Generate realistic site parameters based on location
+    // Generate realistic site parameters based on location (20 parameters for 2025)
     generateSiteParameters(lat, lng, region) {
-        // Base parameters - will be refined based on research
+        // Base parameters with all 20 required fields
         const params = {
+            // Core parameters
             latitude: lat,
             longitude: lng,
             rainfallMm: 1000,
@@ -197,39 +201,90 @@ class ERWApp {
             basaltTransportDistanceKm: 100,
             basaltAvailabilityIndex: 0.7,
             infrastructureQualityIndex: 0.6,
-            agriculturalLandHectares: 500,
+            agriculturalLandHectares: 50000, // Metropolitan scale
             populationDensityPerKm2: 150,
             energyCostPerKWh: 0.10,
-            laborCostPerHour: 8.0
+            laborCostPerHour: 8.0,
+            
+            // Advanced parameters (2025 research) with realistic defaults
+            soilOrganicCarbonPercent: 3.0,
+            elevationMeters: 200,
+            soilMoisturePercent: 35,
+            annualRainfallVariability: 150,
+            regulatoryStabilityIndex: 0.7,
+            carbonMarketAccessibility: 0.6,
+            soilCecMeqPer100g: 12.0,
+            monitoringCapabilityIndex: 0.5
         };
 
-        // Adjust parameters based on region
-        if (region.includes('Madagascar')) {
-            params.rainfallMm = 1400;
-            params.avgTemperatureC = 22.0;
+        // Adjust parameters based on region with enhanced 2025 data
+        if (region.includes('USA')) {
+            params.rainfallMm = 800;
+            params.avgTemperatureC = 15.0;
+            params.laborCostPerHour = 18.0;
+            params.energyCostPerKWh = 0.12;
+            params.populationDensityPerKm2 = 35;
+            params.regulatoryStabilityIndex = 0.85;
+            params.carbonMarketAccessibility = 0.90;
+            params.monitoringCapabilityIndex = 0.80;
+            params.soilOrganicCarbonPercent = 3.5;
+        } else if (region.includes('Canada')) {
+            params.rainfallMm = 700;
+            params.avgTemperatureC = 8.0;
+            params.laborCostPerHour = 20.0;
+            params.energyCostPerKWh = 0.10;
+            params.populationDensityPerKm2 = 15;
+            params.regulatoryStabilityIndex = 0.90;
+            params.carbonMarketAccessibility = 0.85;
+            params.monitoringCapabilityIndex = 0.85;
+        } else if (region.includes('India')) {
+            params.rainfallMm = 1200;
+            params.avgTemperatureC = 26.0;
             params.laborCostPerHour = 3.5;
-            params.energyCostPerKWh = 0.25;
-            params.populationDensityPerKm2 = 80;
-        } else if (region.includes('Karnataka') || region.includes('India')) {
-            params.rainfallMm = 970;
-            params.avgTemperatureC = 24.5;
-            params.laborCostPerHour = 4.5;
             params.energyCostPerKWh = 0.08;
-            params.populationDensityPerKm2 = 120;
+            params.populationDensityPerKm2 = 450;
             params.basaltTransportDistanceKm = 85;
+            params.regulatoryStabilityIndex = 0.65;
+            params.carbonMarketAccessibility = 0.40;
+            params.soilOrganicCarbonPercent = 0.8;
+            params.soilMoisturePercent = 25;
         } else if (region.includes('Brazil')) {
             params.rainfallMm = 1800;
             params.avgTemperatureC = 26.0;
             params.laborCostPerHour = 6.0;
             params.energyCostPerKWh = 0.12;
             params.populationDensityPerKm2 = 200;
+            params.regulatoryStabilityIndex = 0.60;
+            params.carbonMarketAccessibility = 0.50;
+            params.soilOrganicCarbonPercent = 4.5;
         } else if (region.includes('Australia')) {
-            params.rainfallMm = 800;
+            params.rainfallMm = 600;
             params.avgTemperatureC = 20.0;
             params.laborCostPerHour = 25.0;
             params.energyCostPerKWh = 0.22;
-            params.populationDensityPerKm2 = 50;
+            params.populationDensityPerKm2 = 8;
             params.basaltTransportDistanceKm = 200;
+            params.regulatoryStabilityIndex = 0.88;
+            params.carbonMarketAccessibility = 0.75;
+            params.monitoringCapabilityIndex = 0.75;
+        } else if (region.includes('France') || region.includes('Spain')) {
+            params.rainfallMm = 900;
+            params.avgTemperatureC = 18.0;
+            params.laborCostPerHour = 15.0;
+            params.energyCostPerKWh = 0.18;
+            params.populationDensityPerKm2 = 100;
+            params.regulatoryStabilityIndex = 0.82;
+            params.carbonMarketAccessibility = 0.88;
+            params.monitoringCapabilityIndex = 0.70;
+        } else if (region.includes('Argentina')) {
+            params.rainfallMm = 1000;
+            params.avgTemperatureC = 18.0;
+            params.laborCostPerHour = 8.0;
+            params.energyCostPerKWh = 0.09;
+            params.populationDensityPerKm2 = 40;
+            params.regulatoryStabilityIndex = 0.55;
+            params.carbonMarketAccessibility = 0.35;
+            params.soilOrganicCarbonPercent = 5.0;
         }
 
         return params;
@@ -434,12 +489,16 @@ class ERWApp {
 
     // Initialize Map
     initializeMap() {
-        // Initialize Leaflet map centered on Madagascar
-        this.map = L.map('mapContainer').setView([-18.8, 47.0], 6);
+        // Initialize Leaflet map with global view and bounds to prevent scrolling issues
+        this.map = L.map('mapContainer', {
+            maxBounds: [[-90, -180], [90, 180]],
+            maxBoundsViscosity: 1.0
+        }).setView([20, 0], 2);
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+            attribution: '© OpenStreetMap contributors',
+            noWrap: false
         }).addTo(this.map);
 
         // Add site markers
@@ -494,7 +553,15 @@ class ERWApp {
     // Create Score Distribution Chart
     createChart() {
         const ctx = document.getElementById('scoreChart');
-        if (!ctx) return;
+        if (!ctx || !this.sites || this.sites.length === 0) {
+            return;
+        }
+
+        // Ensure Chart.js is loaded
+        if (typeof Chart === 'undefined') {
+            setTimeout(() => this.createChart(), 500);
+            return;
+        }
 
         const scoreRanges = {
             'High (0.7-1.0)': 0,
@@ -508,6 +575,8 @@ class ERWApp {
             else scoreRanges['Low (0.0-0.39)']++;
         });
 
+        // Creating chart with score distribution data
+
         this.chart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -515,15 +584,28 @@ class ERWApp {
                 datasets: [{
                     data: Object.values(scoreRanges),
                     backgroundColor: ['#4CAF50', '#FF9800', '#f44336'],
-                    borderWidth: 0
+                    borderWidth: 2,
+                    borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        bottom: 20
+                    }
+                },
                 plugins: {
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            usePointStyle: true,
+                            font: {
+                                size: 12
+                            }
+                        }
                     }
                 }
             }
@@ -532,15 +614,23 @@ class ERWApp {
 
     // Update Dashboard Stats
     updateDashboard() {
+        // Updating dashboard statistics
+        
         const totalSites = this.sites.length;
         const avgScore = totalSites > 0 
             ? (this.sites.reduce((sum, site) => sum + site.score, 0) / totalSites)
             : 0;
         const totalRegions = new Set(this.sites.map(site => site.region)).size;
 
-        document.getElementById('totalSites').textContent = totalSites;
-        document.getElementById('avgScore').textContent = avgScore.toFixed(2);
-        document.getElementById('totalRegions').textContent = totalRegions;
+        // Dashboard updated with current statistics
+
+        const totalSitesEl = document.getElementById('totalSites');
+        const avgScoreEl = document.getElementById('avgScore');
+        const totalRegionsEl = document.getElementById('totalRegions');
+        
+        if (totalSitesEl) totalSitesEl.textContent = totalSites;
+        if (avgScoreEl) avgScoreEl.textContent = avgScore.toFixed(2);
+        if (totalRegionsEl) totalRegionsEl.textContent = totalRegions;
     }
 
     // Setup Score Calculation Form
@@ -550,39 +640,42 @@ class ERWApp {
             e.preventDefault();
             await this.calculateScore();
         });
-
-        // Add example data button
-        const exampleBtn = document.createElement('button');
-        exampleBtn.type = 'button';
-        exampleBtn.className = 'btn-secondary';
-        exampleBtn.innerHTML = '<i class="fas fa-lightbulb"></i> Load Example Data';
-        exampleBtn.onclick = () => this.loadExampleData();
         
-        form.appendChild(exampleBtn);
+        // Button already exists in HTML, no need to create another one
     }
 
-    // Load Example Data into Form (South Indian location)
+    // Load Example Data into Form (Des Moines - Top ERW City)
     loadExampleData() {
-        // Example: Bangalore Rural site with comprehensive parameters
-        document.getElementById('latitude').value = 12.970;
-        document.getElementById('longitude').value = 77.590;
+        // Example: Des Moines metropolitan area - highest ERW potential globally
+        document.getElementById('latitude').value = 41.5868;
+        document.getElementById('longitude').value = -93.6250;
         
-        // Environmental
-        document.getElementById('rainfallMm').value = 970;
+        // Regional Climate Parameters
+        document.getElementById('rainfallMm').value = 862;
         document.getElementById('soilPh').value = 6.8;
-        document.getElementById('avgTemperatureC').value = 24.5;
+        document.getElementById('avgTemperatureC').value = 10.2;
         
-        // Logistics
-        document.getElementById('distanceToRoadKm').value = 3.5;
-        document.getElementById('basaltTransportDistanceKm').value = 85;
-        document.getElementById('basaltAvailabilityIndex').value = 0.85;
-        document.getElementById('infrastructureQualityIndex').value = 0.78;
+        // Urban-Rural Logistics
+        document.getElementById('distanceToRoadKm').value = 2.5;
+        document.getElementById('basaltTransportDistanceKm').value = 240;
+        document.getElementById('basaltAvailabilityIndex').value = 0.7;
+        document.getElementById('infrastructureQualityIndex').value = 0.92;
         
-        // Economic
-        document.getElementById('agriculturalLandHectares').value = 500;
-        document.getElementById('populationDensityPerKm2').value = 120;
-        document.getElementById('energyCostPerKWh').value = 0.08;
-        document.getElementById('laborCostPerHour').value = 4.5;
+        // Regional Economic Factors
+        document.getElementById('agriculturalLandHectares').value = 1500000; // 1.5M hectares corn/soy hinterland
+        document.getElementById('populationDensityPerKm2').value = 22;
+        document.getElementById('energyCostPerKWh').value = 0.11;
+        document.getElementById('laborCostPerHour').value = 18.5;
+        
+        // Advanced Environmental Parameters (2025 Research)
+        document.getElementById('soilOrganicCarbonPercent').value = 4.2;
+        document.getElementById('elevationMeters').value = 290;
+        document.getElementById('soilMoisturePercent').value = 38;
+        document.getElementById('annualRainfallVariability').value = 180;
+        document.getElementById('regulatoryStabilityIndex').value = 0.88;
+        document.getElementById('carbonMarketAccessibility').value = 0.92;
+        document.getElementById('soilCecMeqPer100g').value = 18.5;
+        document.getElementById('monitoringCapabilityIndex').value = 0.85;
     }
 
     // Calculate Site Score
@@ -607,7 +700,17 @@ class ERWApp {
             agriculturalLandHectares: parseFloat(document.getElementById('agriculturalLandHectares').value),
             populationDensityPerKm2: parseFloat(document.getElementById('populationDensityPerKm2').value),
             energyCostPerKWh: parseFloat(document.getElementById('energyCostPerKWh').value),
-            laborCostPerHour: parseFloat(document.getElementById('laborCostPerHour').value)
+            laborCostPerHour: parseFloat(document.getElementById('laborCostPerHour').value),
+            
+            // Advanced Parameters (2025 Research)
+            soilOrganicCarbonPercent: parseFloat(document.getElementById('soilOrganicCarbonPercent').value),
+            elevationMeters: parseFloat(document.getElementById('elevationMeters').value),
+            soilMoisturePercent: parseFloat(document.getElementById('soilMoisturePercent').value),
+            annualRainfallVariability: parseFloat(document.getElementById('annualRainfallVariability').value),
+            regulatoryStabilityIndex: parseFloat(document.getElementById('regulatoryStabilityIndex').value),
+            carbonMarketAccessibility: parseFloat(document.getElementById('carbonMarketAccessibility').value),
+            soilCecMeqPer100g: parseFloat(document.getElementById('soilCecMeqPer100g').value),
+            monitoringCapabilityIndex: parseFloat(document.getElementById('monitoringCapabilityIndex').value)
         };
 
         try {
@@ -827,6 +930,8 @@ let app;
 document.addEventListener('DOMContentLoaded', () => {
     app = new ERWApp();
 });
+
+// Global functions for HTML onclick handlers - duplicates removed
 
 // Add CSS for additional elements
 const additionalStyles = `

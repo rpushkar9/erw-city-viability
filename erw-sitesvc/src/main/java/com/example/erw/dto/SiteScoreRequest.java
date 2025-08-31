@@ -18,11 +18,21 @@ public class SiteScoreRequest {
     @NotNull @DecimalMin("0.0") @DecimalMax("1.0") private Double basaltAvailabilityIndex;
     @NotNull @DecimalMin("0.0") @DecimalMax("1.0") private Double infrastructureQualityIndex;
     
-    // Economic Parameters
-    @NotNull @DecimalMin("0.0") @DecimalMax("100000.0") private Double agriculturalLandHectares;
+    // Economic Parameters - Updated for metropolitan scale
+    @NotNull @DecimalMin("0.0") @DecimalMax("20000000.0") private Double agriculturalLandHectares; // Up to 20M hectares for large regions
     @NotNull @DecimalMin("0.0") @DecimalMax("10000.0") private Double populationDensityPerKm2;
     @NotNull @DecimalMin("0.01") @DecimalMax("1.0") private Double energyCostPerKWh;
-    @NotNull @DecimalMin("1.0") @DecimalMax("100.0") private Double laborCostPerHour;
+    @NotNull @DecimalMin("1.0") @DecimalMax("200.0") private Double laborCostPerHour; // Up to $200/hour for expensive regions
+    
+    // Advanced Parameters - Based on 2025 Research
+    @NotNull @DecimalMin("0.0") @DecimalMax("5000.0") private Double annualRainfallVariability; // mm std deviation
+    @NotNull @DecimalMin("0.0") @DecimalMax("100.0") private Double soilOrganicCarbonPercent; // SOC %
+    @NotNull @DecimalMin("0.0") @DecimalMax("3000.0") private Double elevationMeters; // Elevation in meters
+    @NotNull @DecimalMin("0.0") @DecimalMax("1.0") private Double regulatoryStabilityIndex; // Regulatory environment 0-1
+    @NotNull @DecimalMin("10.0") @DecimalMax("90.0") private Double soilMoisturePercent; // Soil moisture %
+    @NotNull @DecimalMin("0.0") @DecimalMax("1.0") private Double carbonMarketAccessibility; // Access to carbon markets 0-1
+    @NotNull @DecimalMin("0.0") @DecimalMax("50.0") private Double soilCecMeqPer100g; // Cation exchange capacity
+    @NotNull @DecimalMin("0.0") @DecimalMax("1.0") private Double monitoringCapabilityIndex; // MRV infrastructure 0-1
 
     // Getters and Setters
     public Double getLatitude() { return latitude; }
@@ -54,4 +64,22 @@ public class SiteScoreRequest {
     public void setEnergyCostPerKWh(Double energyCostPerKWh) { this.energyCostPerKWh = energyCostPerKWh; }
     public Double getLaborCostPerHour() { return laborCostPerHour; }
     public void setLaborCostPerHour(Double laborCostPerHour) { this.laborCostPerHour = laborCostPerHour; }
+    
+    // Advanced Parameters Getters and Setters
+    public Double getAnnualRainfallVariability() { return annualRainfallVariability; }
+    public void setAnnualRainfallVariability(Double annualRainfallVariability) { this.annualRainfallVariability = annualRainfallVariability; }
+    public Double getSoilOrganicCarbonPercent() { return soilOrganicCarbonPercent; }
+    public void setSoilOrganicCarbonPercent(Double soilOrganicCarbonPercent) { this.soilOrganicCarbonPercent = soilOrganicCarbonPercent; }
+    public Double getElevationMeters() { return elevationMeters; }
+    public void setElevationMeters(Double elevationMeters) { this.elevationMeters = elevationMeters; }
+    public Double getRegulatoryStabilityIndex() { return regulatoryStabilityIndex; }
+    public void setRegulatoryStabilityIndex(Double regulatoryStabilityIndex) { this.regulatoryStabilityIndex = regulatoryStabilityIndex; }
+    public Double getSoilMoisturePercent() { return soilMoisturePercent; }
+    public void setSoilMoisturePercent(Double soilMoisturePercent) { this.soilMoisturePercent = soilMoisturePercent; }
+    public Double getCarbonMarketAccessibility() { return carbonMarketAccessibility; }
+    public void setCarbonMarketAccessibility(Double carbonMarketAccessibility) { this.carbonMarketAccessibility = carbonMarketAccessibility; }
+    public Double getSoilCecMeqPer100g() { return soilCecMeqPer100g; }
+    public void setSoilCecMeqPer100g(Double soilCecMeqPer100g) { this.soilCecMeqPer100g = soilCecMeqPer100g; }
+    public Double getMonitoringCapabilityIndex() { return monitoringCapabilityIndex; }
+    public void setMonitoringCapabilityIndex(Double monitoringCapabilityIndex) { this.monitoringCapabilityIndex = monitoringCapabilityIndex; }
 }

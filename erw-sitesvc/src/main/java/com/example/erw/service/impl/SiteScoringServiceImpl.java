@@ -9,46 +9,58 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Enhanced Rock Weathering (ERW) Site Scoring Service Implementation
+ * Enhanced Rock Weathering (ERW) Site Scoring Service Implementation v3.0
  * 
- * Provides comprehensive site assessment for ERW carbon removal projects based on 2024 industry data
- * from leading companies including Lithos Carbon, UNDO Carbon, and academic research.
+ * Advanced metropolitan-scale ERW assessment incorporating 20 parameters based on 2025 industry
+ * research from InPlanet (world's first verified credits), Lithos Carbon ($57M Frontier contracts),
+ * UNDO Carbon, and Isometric Enhanced Weathering Protocol standards.
  * 
- * Scoring methodology uses weighted factors across three main categories:
- * - Environmental (40%): pH, temperature, rainfall optimization
- * - Logistics (35%): transport distance, infrastructure, basalt availability  
- * - Economic (25%): land scale, population density, energy & labor costs
+ * Enhanced scoring methodology (20 parameters):
+ * - Environmental (35%): pH, temperature, rainfall, elevation, soil moisture, SOC, rainfall variability
+ * - Logistics (30%): transport, infrastructure, basalt availability, monitoring capability
+ * - Economic (25%): land scale, population density, energy/labor costs, carbon market access
+ * - Advanced Factors (10%): regulatory stability, soil CEC, verification protocols
  * 
- * Key industry parameters implemented:
- * - 3 tons basalt per hectare application rate (Lithos Carbon standard)
- * - 333 kg CO2 removal per ton basalt (3:1 efficiency ratio)
- * - 540km maximum viable transport distance (research-backed limit)
- * - $80-180/ton CO2 competitive cost range for sustainability grading
+ * Key 2025 industry parameters:
+ * - 3 tons basalt per hectare (InPlanet/Lithos standard)
+ * - 333-700 kg CO2 removal per ton basalt (climate-dependent, tropical bonus)
+ * - $57-180/ton CO2 price range (Frontier Climate verified contracts)
+ * - Isometric verification protocol compliance
+ * - Tropical climate 2x efficiency multiplier
  * 
- * @author ERW Site Assessment Platform
- * @version 2.0
- * @since 2024
+ * @author ERW City Viability Analysis Platform
+ * @version 3.0
+ * @since 2025
  */
 @Service
 public class SiteScoringServiceImpl implements SiteScoringService {
 
-    // Scoring constants based on 2024 research
-    private static final double OPTIMAL_PH = 7.5;
-    private static final double OPTIMAL_TEMPERATURE = 25.0; // °C
-    private static final double OPTIMAL_RAINFALL = 1200.0; // mm/year
+    // Enhanced scoring constants based on 2025 research
+    private static final double OPTIMAL_PH = 7.0; // Slightly acidic soils weather faster
+    private static final double OPTIMAL_TEMPERATURE = 28.0; // °C - tropical optimum from research
+    private static final double OPTIMAL_RAINFALL = 1500.0; // mm/year - increased for tropical efficiency
     private static final double MAX_ROAD_DISTANCE = 50.0; // km
-    private static final double MAX_TRANSPORT_DISTANCE = 540.0; // km - based on 2024 research limiting distance
+    private static final double MAX_TRANSPORT_DISTANCE = 540.0; // km - research-backed limit
+    private static final double TROPICAL_TEMPERATURE_THRESHOLD = 24.0; // °C - tropical bonus threshold
+    private static final double OPTIMAL_SOIL_MOISTURE = 40.0; // % - optimal for weathering
+    private static final double OPTIMAL_ELEVATION = 500.0; // m - moderate elevation optimum
+    private static final double OPTIMAL_SOC = 3.0; // % - soil organic carbon optimum
     
     // Updated based on 2024 industry data
     private static final double TRUCK_EMISSIONS_KG_CO2_PER_KM_PER_TON = 0.27;
     private static final double BASALT_APPLICATION_TONS_PER_HECTARE = 3.0; // Lithos Carbon: 3 tons basalt for 1 ton CO2
-    private static final double CO2_REMOVAL_KG_PER_TON_BASALT = 333.0; // 1000kg CO2 / 3 tons basalt = 333 kg per ton
+    private static final double CO2_REMOVAL_BASE_KG_PER_TON_BASALT = 333.0; // Base rate
+    private static final double CO2_REMOVAL_TROPICAL_KG_PER_TON_BASALT = 700.0; // Tropical climate bonus
     
     // Updated cost constants (USD) - 2024 industry data
     private static final double TRUCK_COST_PER_KM_PER_TON = 0.18; // Adjusted for 2024 fuel costs
-    private static final double EQUIPMENT_COST_BASE = 15000.0; // per hectare per year - grinding is major cost
-    private static final double BASE_HECTARES = 100.0; // Default project size
+    private static final double EQUIPMENT_COST_BASE = 16200.0; // per hectare per year - grinding/application equipment
+    private static final double BASE_HECTARES = 100.0; // Default metropolitan pilot project size
     private static final double BASALT_COST_PER_TON = 35.0; // Raw basalt cost including grinding
+    
+    // Regional scaling factors for metropolitan analysis
+    private static final double URBAN_LOGISTICS_PREMIUM = 1.15; // 15% premium for urban-area operations
+    private static final double AGRICULTURAL_EFFICIENCY_FACTOR = 0.92; // Economies of scale in agricultural regions
 
     /**
      * Calculate comprehensive ERW site suitability score and analysis
@@ -64,29 +76,45 @@ public class SiteScoringServiceImpl implements SiteScoringService {
     public SiteScoreResponse scoreSite(SiteScoreRequest req) {
         SiteScoreResponse response = new SiteScoreResponse();
         
-        // Environmental Scoring
+        // Core Environmental Scoring (7 parameters)
         double phScore = calculatePhScore(req.getSoilPh());
         double temperatureScore = calculateTemperatureScore(req.getAvgTemperatureC());
         double rainfallScore = calculateRainfallScore(req.getRainfallMm());
+        double elevationScore = calculateElevationScore(req.getElevationMeters());
+        double soilMoistureScore = calculateSoilMoistureScore(req.getSoilMoisturePercent());
+        double socScore = calculateSocScore(req.getSoilOrganicCarbonPercent());
+        double rainfallVariabilityScore = calculateRainfallVariabilityScore(req.getAnnualRainfallVariability());
         
-        // Logistics Scoring
+        // Core Logistics Scoring (4 parameters) 
         double roadAccessScore = calculateRoadAccessScore(req.getDistanceToRoadKm());
         double transportScore = calculateTransportScore(req.getBasaltTransportDistanceKm());
         double infrastructureScore = req.getInfrastructureQualityIndex();
         double basaltScore = req.getBasaltAvailabilityIndex();
         
-        // Economic Scoring
+        // Core Economic Scoring (5 parameters)
         double landScore = calculateLandScore(req.getAgriculturalLandHectares());
         double populationScore = calculatePopulationScore(req.getPopulationDensityPerKm2());
         double energyScore = calculateEnergyScore(req.getEnergyCostPerKWh());
         double laborScore = calculateLaborScore(req.getLaborCostPerHour());
+        double carbonMarketScore = req.getCarbonMarketAccessibility();
         
-        // Calculate Overall Score (weighted average)
-        double environmentScore = (phScore * 0.3 + temperatureScore * 0.3 + rainfallScore * 0.4);
-        double logisticsScore = (roadAccessScore * 0.2 + transportScore * 0.3 + infrastructureScore * 0.2 + basaltScore * 0.3);
-        double economicScore = (landScore * 0.3 + populationScore * 0.2 + energyScore * 0.25 + laborScore * 0.25);
+        // Advanced Factors Scoring (4 parameters)
+        double regulatoryScore = req.getRegulatoryStabilityIndex();
+        double monitoringScore = req.getMonitoringCapabilityIndex();
+        double soilCecScore = calculateSoilCecScore(req.getSoilCecMeqPer100g());
         
-        double overallScore = environmentScore * 0.4 + logisticsScore * 0.35 + economicScore * 0.25;
+        // Calculate weighted category scores (20 parameters total)
+        double environmentScore = (phScore * 0.2 + temperatureScore * 0.2 + rainfallScore * 0.15 + 
+                                 elevationScore * 0.15 + soilMoistureScore * 0.15 + socScore * 0.1 + rainfallVariabilityScore * 0.05);
+        double logisticsScore = (roadAccessScore * 0.25 + transportScore * 0.35 + infrastructureScore * 0.2 + 
+                                basaltScore * 0.2);
+        double economicScore = (landScore * 0.3 + populationScore * 0.15 + energyScore * 0.2 + 
+                               laborScore * 0.2 + carbonMarketScore * 0.15);
+        double advancedScore = (regulatoryScore * 0.3 + monitoringScore * 0.3 + soilCecScore * 0.2 + 
+                               calculateClimateBonus(req.getAvgTemperatureC(), req.getRainfallMm()) * 0.2);
+        
+        // Overall score with updated weights (Environmental 35%, Logistics 30%, Economic 25%, Advanced 10%)
+        double overallScore = environmentScore * 0.35 + logisticsScore * 0.30 + economicScore * 0.25 + advancedScore * 0.10;
         
         // Score breakdown
         Map<String, Double> breakdown = new LinkedHashMap<>();
@@ -111,7 +139,8 @@ public class SiteScoringServiceImpl implements SiteScoringService {
         // CO2 Calculations
         double basaltTonsPerYear = projectHectares * BASALT_APPLICATION_TONS_PER_HECTARE;
         double transportEmissions = calculateTransportEmissions(basaltTonsPerYear, req.getBasaltTransportDistanceKm());
-        double carbonRemoval = basaltTonsPerYear * CO2_REMOVAL_KG_PER_TON_BASALT * overallScore; // Score affects efficiency
+        double co2RemovalRate = calculateCo2RemovalRate(req.getAvgTemperatureC(), req.getRainfallMm());
+        double carbonRemoval = basaltTonsPerYear * co2RemovalRate * overallScore; // Climate-dependent efficiency
         double netCarbonImpact = carbonRemoval - transportEmissions;
         double carbonEfficiency = carbonRemoval > 0 ? netCarbonImpact / carbonRemoval : 0;
         
@@ -143,7 +172,10 @@ public class SiteScoringServiceImpl implements SiteScoringService {
     
     // Environmental scoring methods
     private double calculatePhScore(double pH) {
-        return 1.0 - Math.abs(pH - OPTIMAL_PH) / OPTIMAL_PH;
+        if (OPTIMAL_PH <= 0) {
+            throw new IllegalStateException("OPTIMAL_PH must be greater than 0");
+        }
+        return Math.max(0, 1.0 - Math.abs(pH - OPTIMAL_PH) / OPTIMAL_PH);
     }
     
     private double calculateTemperatureScore(double temp) {
@@ -211,7 +243,15 @@ public class SiteScoringServiceImpl implements SiteScoringService {
     
     // Cost calculations
     private double calculateTransportCost(double basaltTons, double distanceKm) {
-        return basaltTons * distanceKm * TRUCK_COST_PER_KM_PER_TON * 2; // Round trip
+        double baseCost = basaltTons * distanceKm * TRUCK_COST_PER_KM_PER_TON * 2; // Round trip
+        // Apply metropolitan logistics premium for distances under 100km (urban areas)
+        if (distanceKm < 100) {
+            baseCost *= URBAN_LOGISTICS_PREMIUM;
+        } else {
+            // Apply agricultural efficiency factor for rural operations
+            baseCost *= AGRICULTURAL_EFFICIENCY_FACTOR;
+        }
+        return baseCost;
     }
     
     private double calculateLaborCostTotal(double hectares, double hourlyRate) {
@@ -240,10 +280,48 @@ public class SiteScoringServiceImpl implements SiteScoringService {
         return "F";
     }
     
-    // Utility methods
-    private static double clamp(double v, double min, double max) { 
-        return Math.max(min, Math.min(max, v)); 
+    // Advanced scoring methods (2025 research-based)
+    private double calculateElevationScore(double elevation) {
+        // Optimal elevation around 500m, decreases at extremes
+        double diff = Math.abs(elevation - OPTIMAL_ELEVATION);
+        return Math.max(0.2, 1.0 - (diff / 2000.0)); // Penalize extreme elevations
     }
+    
+    private double calculateSoilMoistureScore(double moisturePercent) {
+        // Optimal around 40%, critical for weathering reactions
+        double diff = Math.abs(moisturePercent - OPTIMAL_SOIL_MOISTURE);
+        return Math.max(0.1, 1.0 - (diff / 50.0));
+    }
+    
+    private double calculateSocScore(double socPercent) {
+        // Higher SOC improves soil health and weathering
+        double normalized = socPercent / OPTIMAL_SOC;
+        return Math.min(1.0, normalized);
+    }
+    
+    private double calculateRainfallVariabilityScore(double variability) {
+        // Lower variability is better for consistent weathering
+        return Math.max(0.3, 1.0 - (variability / 2000.0));
+    }
+    
+    private double calculateSoilCecScore(double cec) {
+        // Higher CEC indicates better soil buffering capacity
+        return Math.min(1.0, cec / 25.0); // 25 meq/100g as high CEC
+    }
+    
+    private double calculateClimateBonus(double temperature, double rainfall) {
+        // Tropical climate bonus based on 2025 research
+        boolean isTropical = temperature >= TROPICAL_TEMPERATURE_THRESHOLD && rainfall >= 1200;
+        return isTropical ? 1.0 : 0.6; // Significant bonus for tropical climates
+    }
+    
+    // Enhanced CO2 calculation with climate dependency
+    private double calculateCo2RemovalRate(double temperature, double rainfall) {
+        boolean isTropical = temperature >= TROPICAL_TEMPERATURE_THRESHOLD && rainfall >= 1200;
+        return isTropical ? CO2_REMOVAL_TROPICAL_KG_PER_TON_BASALT : CO2_REMOVAL_BASE_KG_PER_TON_BASALT;
+    }
+    
+    // Utility methods (removed unused clamp method)
     
     private static double round(double v) { 
         return Math.round(v * 100.0) / 100.0; 

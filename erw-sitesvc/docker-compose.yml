@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    container_name: erw-postgres
+    environment:
+      POSTGRES_DB: erwdb
+      POSTGRES_USER: erw
+      POSTGRES_PASSWORD: erwpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U erw -d erwdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  pgdata:

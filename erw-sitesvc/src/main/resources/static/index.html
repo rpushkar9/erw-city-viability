@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enhanced Rock Weathering Site Assessment Platform - Comprehensive ERW project evaluation with industry-standard parameters, cost analysis, and sustainability grading">
+    <meta name="keywords" content="Enhanced Rock Weathering, ERW, Carbon Removal, Climate Tech, Basalt, Site Assessment, Sustainability">
+    <meta name="author" content="ERW Site Assessment Platform">
+    
+    <title>ERW Site Scoring Service v2.0 - Enhanced Rock Weathering Assessment Platform</title>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" />
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1><i class="fas fa-seedling"></i> ERW Site Scoring Service</h1>
+            <p>Enhanced Rock Weathering Site Assessment Platform</p>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="container">
+            <button class="nav-btn active" data-tab="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            <button class="nav-btn" data-tab="map">
+                <i class="fas fa-map-marked-alt"></i> Site Map
+            </button>
+            <button class="nav-btn" data-tab="calculator">
+                <i class="fas fa-calculator"></i> Score Calculator
+            </button>
+            <button class="nav-btn" data-tab="api">
+                <i class="fas fa-code"></i> API Docs
+            </button>
+        </div>
+    </nav>
+
+    <main class="main">
+        <div class="container">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+                <div class="dashboard-grid">
+                    <div class="stats-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Total Sites</h3>
+                        <span class="stat-number" id="totalSites">0</span>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-star"></i>
+                        <h3>Average Score</h3>
+                        <span class="stat-number" id="avgScore">0.00</span>
+                    </div>
+                    <div class="stats-card">
+                        <i class="fas fa-globe-africa"></i>
+                        <h3>Regions</h3>
+                        <span class="stat-number" id="totalRegions">0</span>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <h2><i class="fas fa-list"></i> ERW Candidate Sites</h2>
+                        <div class="filters">
+                            <select id="regionFilter">
+                                <option value="">All Regions</option>
+                            </select>
+                            <select id="sortBy">
+                                <option value="score">Sort by Score</option>
+                                <option value="name">Sort by Name</option>
+                                <option value="id">Sort by ID</option>
+                            </select>
+                            <select id="sortDir">
+                                <option value="desc">Descending</option>
+                                <option value="asc">Ascending</option>
+                            </select>
+                        </div>
+                        <div class="sites-list" id="sitesList">
+                            <div class="loading">Loading sites...</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2><i class="fas fa-chart-bar"></i> Site Scores Distribution</h2>
+                        <div class="chart-container">
+                            <canvas id="scoreChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Tab -->
+            <div id="map" class="tab-content">
+                <div class="map-container-wrapper">
+                    <div class="card map-card">
+                        <h2><i class="fas fa-map-marked-alt"></i> ERW Sites Map</h2>
+                        <div class="map-content">
+                            <div id="mapContainer" style="height: 500px;"></div>
+                            <div id="siteAnalysisPanel" class="site-analysis-panel hidden">
+                                <div class="panel-header">
+                                    <h3 id="panelSiteName">Site Analysis</h3>
+                                    <button class="panel-close-btn" onclick="app.closeSitePanel()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="panel-content">
+                                    <div class="loading-panel">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        <p>Loading site analysis...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <span class="legend-color high"></span>
+                                <span>High Score (0.7-1.0)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color medium"></span>
+                                <span>Medium Score (0.4-0.69)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color low"></span>
+                                <span>Low Score (0.0-0.39)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Tab -->
+            <div id="calculator" class="tab-content">
+                <div class="content-grid">
+                    <div class="card">
+                        <h2><i class="fas fa-calculator"></i> Site Score Calculator</h2>
+                        <form id="scoringForm">
+                            <h3><i class="fas fa-map-marker-alt"></i> Location Parameters</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="latitude">
+                                        <i class="fas fa-map-pin"></i> Latitude
+                                    </label>
+                                    <input type="number" id="latitude" step="0.000001" placeholder="e.g., 12.970" required>
+                                    <span class="help-text">Geographic latitude coordinate</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="longitude">
+                                        <i class="fas fa-map-pin"></i> Longitude
+                                    </label>
+                                    <input type="number" id="longitude" step="0.000001" placeholder="e.g., 77.590" required>
+                                    <span class="help-text">Geographic longitude coordinate</span>
+                                </div>
+                            </div>
+
+                            <h3><i class="fas fa-leaf"></i> Environmental Parameters</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="rainfallMm">
+                                        <i class="fas fa-cloud-rain"></i> Annual Rainfall (mm)
+                                    </label>
+                                    <input type="number" id="rainfallMm" min="0" placeholder="e.g., 1200" required>
+                                    <span class="help-text">Average annual precipitation</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="soilPh">
+                                        <i class="fas fa-vial"></i> Soil pH
+                                    </label>
+                                    <input type="number" id="soilPh" min="0" max="14" step="0.1" placeholder="e.g., 7.2" required>
+                                    <span class="help-text">Soil acidity/alkalinity (0-14)</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="avgTemperatureC">
+                                        <i class="fas fa-thermometer-half"></i> Average Temperature (°C)
+                                    </label>
+                                    <input type="number" id="avgTemperatureC" min="-50" max="60" step="0.1" placeholder="e.g., 25.5" required>
+                                    <span class="help-text">Average annual temperature</span>
+                                </div>
+                            </div>
+
+                            <h3><i class="fas fa-truck"></i> Logistics Parameters</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="distanceToRoadKm">
+                                        <i class="fas fa-road"></i> Distance to Road (km)
+                                    </label>
+                                    <input type="number" id="distanceToRoadKm" min="0" step="0.1" placeholder="e.g., 5.5" required>
+                                    <span class="help-text">Distance to nearest road access</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="basaltTransportDistanceKm">
+                                        <i class="fas fa-shipping-fast"></i> Basalt Transport Distance (km)
+                                    </label>
+                                    <input type="number" id="basaltTransportDistanceKm" min="0" max="1000" step="1" placeholder="e.g., 150" required>
+                                    <span class="help-text">Distance from basalt quarry</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="basaltAvailabilityIndex">
+                                        <i class="fas fa-mountain"></i> Basalt Availability Index
+                                    </label>
+                                    <input type="number" id="basaltAvailabilityIndex" min="0" max="1" step="0.01" placeholder="e.g., 0.8" required>
+                                    <span class="help-text">Rock availability (0.0 - 1.0)</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="infrastructureQualityIndex">
+                                        <i class="fas fa-building"></i> Infrastructure Quality Index
+                                    </label>
+                                    <input type="number" id="infrastructureQualityIndex" min="0" max="1" step="0.01" placeholder="e.g., 0.75" required>
+                                    <span class="help-text">Local infrastructure quality (0.0 - 1.0)</span>
+                                </div>
+                            </div>
+
+                            <h3><i class="fas fa-dollar-sign"></i> Economic Parameters</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="agriculturalLandHectares">
+                                        <i class="fas fa-seedling"></i> Agricultural Land (hectares)
+                                    </label>
+                                    <input type="number" id="agriculturalLandHectares" min="0" max="100000" step="1" placeholder="e.g., 500" required>
+                                    <span class="help-text">Available agricultural land area</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="populationDensityPerKm2">
+                                        <i class="fas fa-users"></i> Population Density (people/km²)
+                                    </label>
+                                    <input type="number" id="populationDensityPerKm2" min="0" max="10000" step="1" placeholder="e.g., 150" required>
+                                    <span class="help-text">Local population density</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="energyCostPerKWh">
+                                        <i class="fas fa-bolt"></i> Energy Cost ($/kWh)
+                                    </label>
+                                    <input type="number" id="energyCostPerKWh" min="0.01" max="1.0" step="0.01" placeholder="e.g., 0.12" required>
+                                    <span class="help-text">Local electricity cost</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="laborCostPerHour">
+                                        <i class="fas fa-hard-hat"></i> Labor Cost ($/hour)
+                                    </label>
+                                    <input type="number" id="laborCostPerHour" min="1" max="100" step="0.5" placeholder="e.g., 8.5" required>
+                                    <span class="help-text">Local labor hourly rate</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-calculator"></i> Calculate Enhanced Score
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="app.loadExampleData()">
+                                    <i class="fas fa-lightbulb"></i> Load Example Data
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h2><i class="fas fa-chart-pie"></i> Score Result</h2>
+                        <div id="scoreResult" class="score-result">
+                            <div class="no-result">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Fill out the form and click "Calculate Score" to see results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Docs Tab -->
+            <div id="api" class="tab-content">
+                <div class="card">
+                    <h2><i class="fas fa-code"></i> API Documentation</h2>
+                    <div class="api-docs">
+                        <div class="endpoint">
+                            <h3>GET /api/sites</h3>
+                            <p>List ERW candidate sites with optional filtering and pagination.</p>
+                            <div class="endpoint-details">
+                                <h4>Query Parameters:</h4>
+                                <ul>
+                                    <li><code>region</code> - Filter by region (optional)</li>
+                                    <li><code>sort</code> - Sort field: score, name, id (default: score)</li>
+                                    <li><code>dir</code> - Sort direction: asc, desc (default: desc)</li>
+                                    <li><code>page</code> - Page number (default: 0)</li>
+                                    <li><code>size</code> - Page size, 1-100 (default: 20)</li>
+                                </ul>
+                                <div class="endpoint-example">
+                                    <strong>Example:</strong>
+                                    <code>GET /api/sites?region=Madagascar-NW&sort=score&dir=desc</code>
+                                    <button class="btn-copy" onclick="testEndpoint('/api/sites?region=Madagascar-NW&sort=score&dir=desc')">
+                                        <i class="fas fa-play"></i> Test
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <h3>POST /api/sitescore</h3>
+                            <p>Calculate site suitability score from environmental factors.</p>
+                            <div class="endpoint-details">
+                                <h4>Request Body:</h4>
+                                <pre><code>{
+  "latitude": -18.15,
+  "longitude": 49.40,
+  "rainfallMm": 1200,
+  "soilPh": 7.2,
+  "distanceToRoadKm": 10,
+  "basaltAvailabilityIndex": 0.8
+}</code></pre>
+                                <button class="btn-copy" onclick="testScoringEndpoint()">
+                                    <i class="fas fa-play"></i> Test
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <h3>GET /api/health</h3>
+                            <p>Service health check.</p>
+                            <div class="endpoint-example">
+                                <button class="btn-copy" onclick="testEndpoint('/api/health')">
+                                    <i class="fas fa-play"></i> Test
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ERW Site Scoring Service. Enhanced Rock Weathering for Carbon Removal.</p>
+        </div>
+    </footer>
+
+    <!-- External Dependencies -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"
+            integrity="sha256-vHI6EUC7w4C2ApnfOcRXQe1fX2Y4gqKzGKzJWIKYHaQ=" crossorigin="anonymous"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/app.js" defer></script>
+</body>
+</html>

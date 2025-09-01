@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: erw-city-viability
+    env: java
+    buildCommand: "./mvnw clean package -DskipTests"
+    startCommand: "java -Dserver.port=$PORT -jar target/*.jar"
+    plan: free
+    envVars:
+      - key: DB_URL
+        fromDatabase:
+          name: erw-postgres
+          property: connectionString
+      - key: DB_USER
+        fromDatabase:
+          name: erw-postgres
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: erw-postgres
+          property: password
+
+databases:
+  - name: erw-postgres
+    plan: free

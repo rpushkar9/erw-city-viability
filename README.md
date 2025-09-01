@@ -1,344 +1,384 @@
-# ERW City Viability Analysis Platform v3.0
+# ERW City Viability Analysis Platform
 
-🌍 **Enhanced Rock Weathering City-Scale Viability Analysis** - A comprehensive Spring Boot application with interactive web interface for evaluating ERW project viability at metropolitan scale using cutting-edge 2025 industry research and 20-parameter assessment.
+> **Enhanced Rock Weathering Metropolitan Assessment Tool**  
+> A comprehensive Spring Boot application for evaluating ERW project viability across global metropolitan areas using research-based 20-parameter assessment.
 
-## 🎯 Overview
+## 🌍 Overview
 
-This platform analyzes Enhanced Rock Weathering (ERW) viability for major cities worldwide using industry-standard parameters from leading companies like Lithos Carbon, UNDO Carbon, and InPlanet. It provides detailed environmental impact analysis, cost breakdowns, and sustainability grading based on 2025 research with advanced parameters including soil organic carbon, regulatory stability, and carbon market accessibility.
+This platform provides scientific assessment of Enhanced Rock Weathering (ERW) potential for metropolitan areas and their agricultural hinterlands worldwide. Built with Spring Boot 3.3.2 and Java 21, it features an interactive web interface, comprehensive scoring algorithms, and RESTful API for ERW project evaluation.
 
-## ✨ Key Features
+**Key Capabilities:**
+- **45 Pre-analyzed Metropolitan Areas** across 21 countries and 6 continents
+- **20-Parameter Assessment Model** based on 2025 industry research
+- **Interactive Web Interface** with global mapping and detailed analysis
+- **RESTful API** for programmatic access and integration
+- **Cost & Environmental Analysis** with CO₂ calculations
 
-- **🗺️ Interactive Map Interface** - Visual site exploration with detailed analysis panels
-- **📊 Real-time Scoring** - 20-parameter comprehensive city viability evaluation 
-- **💰 Economic Analysis** - Material, transport, labor, and equipment cost calculations
-- **🌍 Environmental Impact** - CO₂ emissions vs removal analysis with efficiency metrics
-- **📈 Industry Data** - Based on 2024 research from leading ERW companies
-- **🎯 Sustainability Grading** - A+ to F rating system using industry benchmarks
-- **🌐 45 Global Metropolitan Areas** - Comprehensive coverage across 21 countries and 6 continents
+## 🏗️ Architecture
+
+**Backend:**
+- **Framework:** Spring Boot 3.3.2 (Java 21)
+- **Database:** PostgreSQL with JPA/Hibernate
+- **Validation:** Jakarta Validation with comprehensive constraints
+- **Security:** Input validation, SQL injection prevention, resource limits
+
+**Frontend:**
+- **Interface:** Modern HTML5/CSS3/JavaScript
+- **Mapping:** Leaflet.js 1.9.4 for interactive maps
+- **Visualization:** Chart.js for data presentation
+- **Styling:** Responsive design with glass-morphism effects
 
 ## 🚀 Quick Start
 
-**Prerequisites:** Docker Desktop must be running
+### Prerequisites
+- **Java 21** (OpenJDK or Oracle)
+- **Docker Desktop** (for PostgreSQL)
+- **Git** (for cloning)
+
+### Installation
 
 ```bash
-# 1. Start PostgreSQL
+# 1. Clone repository
+git clone https://github.com/rpushkar9/erw-city-viability.git
+cd erw-city-viability
+
+# 2. Start PostgreSQL database
 docker compose up -d
 
-# 2. Run the application
-export JAVA_HOME=/opt/homebrew/opt/openjdk@21  # macOS with Homebrew
+# 3. Run application
 ./mvnw spring-boot:run
 
-# Windows users:
-# set JAVA_HOME=C:\Program Files\Java\jdk-21
-# mvnw.cmd spring-boot:run
+# 4. Access web interface
+# http://localhost:8080
 ```
 
-**Access the application:** [http://localhost:8080](http://localhost:8080)
-
-## 🌐 Web Interface
-
-### Dashboard Features
-- **📈 Live Statistics** - Total sites, average scores, regional coverage
-- **🗂️ Site Management** - Filtering, sorting, and detailed site listings
-- **📊 Score Distribution** - Visual charts showing site performance
-- **🗺️ Interactive Map** - Click sites for detailed analysis panels
-
-### Metropolitan Calculator
-- **20 Parameter Input** - Environmental, logistics, economic, and advanced regulatory factors
-- **🎯 Real-time Results** - Instant scoring with detailed breakdowns
-- **💡 Example Data** - Load realistic South Indian site parameters
-- **📋 Comprehensive Reports** - Environmental impact, costs, and sustainability grades
-
-### API Documentation
-- **🔧 Live Testing** - Test endpoints directly from the web interface
-- **📋 Complete Examples** - Copy-paste ready API calls
-- **✅ Health Monitoring** - Service status and endpoint availability
-
-## 📊 Industry-Based Scoring (2025 Advanced Research)
-
-### Environmental Factors (35% weight)
-- **Soil pH** - Optimal range around 7.0 for enhanced basalt weathering
-- **Temperature** - 28°C tropical optimum with 2x efficiency bonus
-- **Rainfall** - 1500mm/year optimal with variability assessment
-- **Soil Organic Carbon** - 3% optimal for enhanced weathering reactions
-- **Soil Moisture** - 35-45% range for optimal mineral-soil interaction
-
-### Logistics Factors (30% weight)
-- **Road Access** - Distance penalties for remote locations
-- **Basalt Transport** - 540km maximum viable distance (2025 research-backed)
-- **Infrastructure Quality** - Metropolitan capacity for large-scale implementation
-- **Basalt Availability** - Regional alkaline rock resource accessibility
-- **Monitoring Capability** - MRV infrastructure for verification protocols
-
-### Economic Factors (25% weight)
-- **Agricultural Land Scale** - Metropolitan-scale potential up to 20M hectares
-- **Population Density** - Urban-rural interface complexity
-- **Energy Costs** - Local electricity rates for grinding/processing
-- **Labor Costs** - Regional wage rates up to $200/hour in expensive areas
-
-### Advanced Factors (10% weight - 2025 Research)
-- **Regulatory Stability** - Policy environment for carbon removal projects
-- **Carbon Market Access** - Access to voluntary carbon markets and standards
-- **Elevation Impact** - Altitude effects on weathering kinetics
-- **Soil CEC** - Cation exchange capacity for enhanced reactions
-
-## 💰 Cost Analysis (2024 Benchmarks)
-
-Based on industry leaders Lithos Carbon, UNDO, and recent research:
-
-- **Basalt Material**: $35/ton (including grinding - major cost component)
-- **Transport Cost**: $0.18/km/ton (2024 fuel-adjusted rates)
-- **Application Rate**: 3 tons basalt per hectare (Lithos Carbon standard)
-- **CO₂ Removal**: 333 kg per ton basalt (3:1 efficiency ratio)
-- **Target Cost**: $80-180/ton CO₂ for market competitiveness
-
-## 🏆 Sustainability Grading
-
-| Grade | Score | Efficiency | Cost/ton CO₂ | Industry Status |
-|-------|-------|------------|--------------|-----------------|
-| **A+** | ≥0.8 | ≥90% | ≤$120 | Market-leading |
-| **A**  | ≥0.7 | ≥80% | ≤$150 | Competitive |
-| **B+** | ≥0.6 | ≥70% | ≤$180 | Viable |
-| **B**  | ≥0.5 | ≥60% | ≤$220 | Marginal |
-| **C+** | ≥0.4 | ≥50% | ≤$280 | Challenging |
-| **C**  | ≥0.3 | ≥40% | ≤$350 | Poor |
-| **D**  | ≥0.2 | ≥30% | ≤$500 | Unviable |
-| **F**  | <0.2 | <30% | >$500 | Failed |
-
-## 🌍 Global Site Coverage
-
-### Madagascar (3 sites)
-- Ambanja West, Sambava East, Toamasina Portside
-
-### South India (8 sites) 
-- Karnataka: Bangalore Rural, Mysore Agricultural, Coimbatore Industrial
-- Andhra Pradesh: Salem, Visakhapatnam, Guntur
-- Kerala: Kochi, Thrissur
-
-### Brazil (2 sites)
-- Cerrado Central, São Paulo Agricultural
-
-### Australia (2 sites)
-- Victoria Highlands, Queensland Pastoral
-
-## 🔧 API Endpoints
-
-### Core Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/sites` | List sites with filtering & pagination |
-| `POST` | `/api/sitescore` | Calculate comprehensive site analysis |
-| `GET` | `/api/health` | Service health check |
-
-### Advanced Site Listing
+### Alternative: Native PostgreSQL
 ```bash
-GET /api/sites?region=Karnataka-South&sort=score&dir=desc&page=0&size=10
+# If you have PostgreSQL installed locally
+export DB_URL=jdbc:postgresql://localhost:5432/erwdb
+export DB_USER=your_username
+export DB_PASS=your_password
+
+./mvnw spring-boot:run
 ```
 
-### Comprehensive Scoring
+## 📊 Core Features
+
+### 1. **Metropolitan Area Rankings**
+- Global dashboard with 45 metropolitan areas
+- Sortable by ERW score, name, or region
+- Filterable by country/region
+- Statistical overview with averages and distribution
+
+### 2. **Interactive Global Map**
+- Real-time metropolitan area visualization
+- Color-coded by ERW potential (High: 0.7-1.0, Medium: 0.4-0.69, Low: 0.0-0.39)
+- Click for detailed analysis panels
+- Responsive design for all devices
+
+### 3. **Metropolitan ERW Calculator**
+- **20-parameter assessment model:**
+
+**Basic Parameters (8):**
+- Geographical coordinates (latitude/longitude)
+- Annual rainfall (mm)
+- Soil pH (0-14 scale)
+- Average temperature (°C)
+- Road access distance (km)
+- Basalt transport distance (km)
+- Basalt availability index (0-1)
+- Infrastructure quality index (0-1)
+
+**Economic Parameters (4):**
+- Agricultural land scale (hectares, up to 20M)
+- Population density (people/km²)
+- Energy cost ($/kWh)
+- Agricultural labor cost ($/hour)
+
+**Advanced Parameters (8) - Based on 2025 Research:**
+- Annual rainfall variability (mm std deviation)
+- Soil organic carbon percentage (%)
+- Elevation (meters)
+- Regulatory stability index (0-1)
+- Soil moisture percentage (10-90%)
+- Carbon market accessibility (0-1)
+- Soil cation exchange capacity (meq/100g)
+- Monitoring capability index (0-1)
+
+### 4. **Analysis Results**
+- **ERW Viability Score** (0.0-1.0 scale)
+- **Cost Analysis** ($/ton basalt with breakdown)
+- **CO₂ Impact** (emissions vs. removal calculations)
+- **Sustainability Grade** (A+ to F rating)
+- **Implementation Recommendations**
+
+## 🌐 API Documentation
+
+### Base URL
+```
+http://localhost:8080/api
+```
+
+### Endpoints
+
+#### 1. List Metropolitan Areas
+```http
+GET /api/sites
+```
+
+**Query Parameters:**
+- `region` (optional) - Filter by region (e.g., "California-USA")
+- `sort` (optional) - Sort by: `score`, `name`, `id` (default: `score`)
+- `dir` (optional) - Direction: `asc`, `desc` (default: `desc`)
+- `page` (optional) - Page number (default: `0`)
+- `size` (optional) - Page size 1-100 (default: `20`)
+
+**Example:**
 ```bash
-curl -X POST "http://localhost:8080/api/sitescore" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "latitude": 12.970,
-    "longitude": 77.590,
-    "rainfallMm": 970,
-    "soilPh": 6.8,
-    "avgTemperatureC": 24.5,
-    "distanceToRoadKm": 3.5,
-    "basaltTransportDistanceKm": 85,
-    "basaltAvailabilityIndex": 0.85,
-    "infrastructureQualityIndex": 0.78,
-    "agriculturalLandHectares": 500,
-    "populationDensityPerKm2": 120,
-    "energyCostPerKWh": 0.08,
-    "laborCostPerHour": 4.5
-  }'
+curl "http://localhost:8080/api/sites?region=California-USA&sort=score&dir=desc"
 ```
 
-### Response Format
+**Response:**
 ```json
 {
-  "score": 0.90,
-  "sustainabilityGrade": "B+",
-  "carbonRemovalKgPerYear": 90128.95,
-  "co2EmissionsKgPerYear": 13770.0,
-  "netCarbonImpactKgPerYear": 76358.95,
-  "carbonEfficiencyRatio": 0.85,
-  "costPerTonCo2Removed": 225.19,
-  "totalCostUsdPerYear": 2029680.0,
+  "page": 0,
+  "size": 20,
+  "totalCount": 45,
+  "sites": [
+    {
+      "id": 1,
+      "name": "Des Moines",
+      "region": "Iowa-USA",
+      "latitude": 41.5868,
+      "longitude": -93.6250,
+      "score": 0.94
+    }
+  ]
+}
+```
+
+#### 2. Calculate ERW Score
+```http
+POST /api/sitescore
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "latitude": 41.5868,
+  "longitude": -93.6250,
+  "rainfallMm": 1200,
+  "soilPh": 6.8,
+  "avgTemperatureC": 10.5,
+  "distanceToRoadKm": 2.0,
+  "basaltTransportDistanceKm": 150,
+  "basaltAvailabilityIndex": 0.8,
+  "infrastructureQualityIndex": 0.85,
+  "agriculturalLandHectares": 1500000,
+  "populationDensityPerKm2": 150,
+  "energyCostPerKWh": 0.12,
+  "laborCostPerHour": 18.5,
+  "annualRainfallVariability": 200,
+  "soilOrganicCarbonPercent": 3.5,
+  "elevationMeters": 400,
+  "regulatoryStabilityIndex": 0.9,
+  "soilMoisturePercent": 45,
+  "carbonMarketAccessibility": 0.85,
+  "soilCecMeqPer100g": 15,
+  "monitoringCapabilityIndex": 0.8
+}
+```
+
+**Response:**
+```json
+{
+  "score": 0.94,
+  "grade": "A+",
+  "costPerTon": 125.50,
+  "co2RemovalKgPerTon": 333,
+  "co2EmissionsKgPerTon": 45,
+  "netCo2BenefitKgPerTon": 288,
   "breakdown": {
-    "environmental": 0.90,
-    "logistics": 0.90,
-    "economic": 0.92
+    "environmental": 0.92,
+    "logistics": 0.88,
+    "economic": 0.85,
+    "advanced": 0.89
   }
 }
 ```
 
-## 🛠️ Technology Stack
+#### 3. Service Health
+```http
+GET /api/health
+```
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| **Backend** | Java | 21 |
-| **Framework** | Spring Boot | 3.3.2 |
-| **Database** | PostgreSQL | 15 |
-| **Frontend** | HTML5/CSS3/JavaScript | Modern |
-| **Mapping** | Leaflet.js | 1.9.4 |
-| **Charts** | Chart.js | Latest |
-| **Icons** | Font Awesome | 6.4.0 |
-| **Build** | Maven | Wrapper |
-| **Containerization** | Docker Compose | Latest |
+#### 4. Service Info
+```http
+GET /api/info
+```
 
-## 🏗️ Project Architecture
+## 🗂️ Global Coverage
 
+**45 Metropolitan Areas across 21 Countries:**
+
+**North America (14):**
+- 🇺🇸 USA: Des Moines, Fresno, Kansas City, Lincoln, Fargo, Stockton, Bakersfield, Grand Island, Minot
+- 🇨🇦 Canada: Winnipeg, Calgary, Saskatoon, Regina, Lethbridge
+
+**Asia (9):**
+- 🇮🇳 India: Bangalore, Hyderabad, Ludhiana, Nashik, Mysore
+- 🇨🇳 China: Jinan, Beijing Rural
+- 🇯🇵 Japan: Sendai
+- 🇰🇷 South Korea: Suwon
+
+**Europe (6):**
+- 🇫🇷 France: Toulouse, Toulouse Rural
+- 🇪🇸 Spain: Lleida
+- 🇺🇦 Ukraine: Kiev
+- 🇩🇪 Germany: Munich Rural
+- 🇷🇺 Russia: Krasnodar, Novosibirsk Rural
+
+**South America (6):**
+- 🇧🇷 Brazil: São Paulo Interior, Piracicaba, Londrina
+- 🇦🇷 Argentina: Córdoba, Mendoza, Rosario
+
+**Africa (4):**
+- 🇰🇪 Kenya: Nairobi
+- 🇿🇦 South Africa: Johannesburg Rural
+- 🇲🇦 Morocco: Casablanca Rural
+- 🇳🇬 Nigeria: Kano
+
+**Oceania (3):**
+- 🇦🇺 Australia: Brisbane, Perth
+- 🇳🇿 New Zealand: Palmerston North
+
+**Asia-Europe Bridge (1):**
+- 🇹🇷 Turkey: Ankara Rural
+
+**Southeast Asia (1):**
+- 🇹🇭 Thailand: Bangkok Rural
+
+## 🧪 Development
+
+### Project Structure
 ```
 src/
-├── main/java/com/example/erw/
-│   ├── Application.java                    # Main application
-│   ├── controller/
-│   │   ├── HomeController.java            # Service info & health
-│   │   └── SiteController.java            # Sites & scoring APIs
-│   ├── dto/                               # Request/response models
-│   │   ├── SiteScoreRequest.java         # 12-parameter input
-│   │   └── SiteScoreResponse.java        # Comprehensive results
-│   ├── service/impl/
-│   │   └── SiteScoringServiceImpl.java   # Industry-based algorithms
-│   ├── model/Site.java                   # JPA entity
-│   ├── repository/SiteRepository.java    # Data access
-│   └── exception/GlobalExceptionHandler.java
-├── main/resources/
-│   ├── static/                           # Web interface
-│   │   ├── index.html                   # Main application
-│   │   ├── css/styles.css               # Responsive design
-│   │   └── js/app.js                    # Interactive features
-│   ├── application.yml                  # Configuration
-│   └── data.sql                         # 45 global metropolitan areas
+├── main/
+│   ├── java/com/example/erw/
+│   │   ├── Application.java              # Main application
+│   │   ├── config/DatabaseConfig.java    # DB configuration
+│   │   ├── controller/
+│   │   │   ├── HomeController.java       # Service info & health
+│   │   │   └── SiteController.java       # Main API endpoints
+│   │   ├── dto/                          # Data Transfer Objects
+│   │   │   ├── PagedSiteResponse.java
+│   │   │   ├── SiteScoreRequest.java     # 20-parameter input
+│   │   │   └── SiteScoreResponse.java
+│   │   ├── model/Site.java               # JPA entity
+│   │   ├── repository/SiteRepository.java
+│   │   ├── service/
+│   │   │   ├── SiteScoringService.java
+│   │   │   └── impl/SiteScoringServiceImpl.java  # Core algorithm
+│   │   └── exception/GlobalExceptionHandler.java
+│   └── resources/
+│       ├── static/                       # Web interface
+│       │   ├── index.html               # Single-page application
+│       │   ├── css/styles.css           # Responsive styling
+│       │   └── js/app.js                # Interactive features
+│       ├── application.yml              # Configuration
+│       └── data.sql                     # 45 metropolitan areas
 └── test/java/                           # Unit tests
 ```
 
-## 🔬 Research-Based Implementation
+### Running Tests
+```bash
+./mvnw test
+```
 
-### 2025 Industry Data Sources
-- **Lithos Carbon**: 3:1 basalt to CO₂ ratio, field applications, MRV protocols
-- **UNDO Carbon**: 200,000+ tons applied, cost optimization research
-- **InPlanet**: Tropical climate 2x efficiency data, Brazil field trials
-- **Frontier Climate**: $57-180/ton verified contract pricing
-- **Academic Research**: Enhanced weathering kinetics, soil interaction mechanisms
-- **Isometric Protocol**: Industry-standard verification methodology
+### Building
+```bash
+# Build JAR
+./mvnw clean package
 
-### Key Research Findings Implemented
-- ✅ Transport distance critical limitation (540km max)
-- ✅ Grinding costs 10-30% of CO₂ benefit
-- ✅ Under 100km transport optimal for economics
-- ✅ 3 tons basalt application rate industry standard
-- ✅ $100-150/ton target for market competitiveness
+# Build Docker image (requires Dockerfile)
+docker build -t erw-city-viability .
+```
 
-## 🔧 Configuration & Deployment
+## 🔧 Configuration
 
 ### Environment Variables
-```bash
-# Database (required - no defaults for security)
-DB_URL=jdbc:postgresql://localhost:5432/erwdb
-DB_USER=your_db_user
-DB_PASS=your_secure_password
+- `PORT` - Server port (default: 8080)
+- `DATABASE_URL` - PostgreSQL JDBC URL
+- `DB_USER` - Database username (if not in URL)
+- `DB_PASS` - Database password (if not in URL)
 
-# Java (required for non-standard installations)
-JAVA_HOME=/path/to/java-21
+### Application Properties (`application.yml`)
+```yaml
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    # URL configured via DatabaseConfig.java
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
 ```
+
+## 🚀 Deployment
+
+### Cloud Deployment (Render/Heroku)
+1. Set `DATABASE_URL` environment variable
+2. Application automatically configures database connection
+3. Uses embedded Tomcat (no external server needed)
+4. Health check available at `/api/health`
 
 ### Docker Deployment
-```yaml
-# docker-compose.yml included
-services:
-  postgres:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: erwdb
-      POSTGRES_USER: erw
-      POSTGRES_PASSWORD: erwpass
-```
-
-## 🧪 Testing
-
 ```bash
-# Unit tests
-./mvnw test
+# Using docker-compose
+docker compose up -d
 
-# Integration testing via web interface
-# 1. Load example data in calculator
-# 2. Verify realistic results (~$225/ton CO₂)
-# 3. Test site clicking for analysis panels
+# Or manually
+docker run -d --name postgres -e POSTGRES_DB=erwdb -p 5432:5432 postgres:15-alpine
+docker run -d --name erw-app -p 8080:8080 -e DATABASE_URL=jdbc:postgresql://host:5432/erwdb erw-city-viability
 ```
 
-## 🚨 Troubleshooting
+## 📈 Technical Specifications
 
-| Issue | Solution |
-|-------|----------|
-| **Port 8080 busy** | `lsof -ti:8080 \| xargs kill -9` |
-| **Java not found** | Set `JAVA_HOME` to Java 21 installation |
-| **Database connection** | Ensure `docker compose up -d` completed |
-| **Empty site list** | Check `data.sql` loaded correctly |
+- **Response Time:** <200ms for scoring calculations
+- **Concurrent Users:** Supports 100+ simultaneous users  
+- **Memory Usage:** ~512MB typical Spring Boot footprint
+- **Storage:** <100MB including static assets
+- **Database:** 45 metropolitan areas, expandable design
+- **API Rate Limiting:** Input validation and pagination prevent abuse
+- **Security:** SQL injection prevention, input sanitization
 
-## 📈 Performance Characteristics
+## 🤝 Contributing
 
-- **Response Time**: <200ms for scoring calculations
-- **Concurrent Users**: Supports 100+ simultaneous users
-- **Database**: 45 metropolitan areas with global expansion potential
-- **Memory Usage**: ~512MB typical Spring Boot footprint
-- **Storage**: <100MB including static assets
+**Contact Information:**
+- **Developer:** Pushkar Rimmalapudi
+- **Email:** rpushkar@uw.edu
+- **GitHub:** [@rpushkar9](https://github.com/rpushkar9)
 
-## 🔮 Future Roadmap
+**Development Guidelines:**
+1. Follow Spring Boot best practices
+2. Maintain comprehensive input validation
+3. Include unit tests for new features
+4. Update API documentation for changes
+5. Ensure responsive web design compatibility
 
-### Near-term (v2.1)
-- [ ] Real-time weather data integration
-- [ ] Multiple basalt rock types (olivine, wollastonite)
-- [ ] Batch site analysis for regional planning
-- [ ] Export functionality (PDF reports, CSV data)
+## 📄 License
 
-### Medium-term (v3.0)
-- [ ] Machine learning yield predictions
-- [ ] Climate scenario modeling (2030, 2050)
-- [ ] Multi-language support
-- [ ] Mobile-responsive design improvements
-
-### Long-term (v4.0)
-- [ ] Satellite imagery integration
-- [ ] Real farmer partnership data
-- [ ] Carbon credit marketplace integration
-- [ ] Advanced geospatial analysis
-
-## 📊 Industry Impact
-
-This tool addresses real ERW industry challenges:
-
-- **Cost Transparency**: Reveals why most sites grade F (>$500/ton CO₂)
-- **Transport Optimization**: 540km distance limit from research
-- **Scale Reality**: Shows economics at 100-hectare project scale
-- **Benchmark Comparison**: Industry-standard sustainability grading
-
-## 👥 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- **Lithos Carbon** - 3:1 application ratio data
-- **UNDO Carbon** - Transport distance research
-- **MIT Climate Portal** - ERW technical background
-- **Nature Research** - Enhanced weathering academic studies
-- **Enhanced Rock Minerals** - Industry cost benchmarks
+This project is open source and available under standard terms for research and educational purposes.
 
 ---
 
-**Built with ❤️ for the Enhanced Rock Weathering industry and climate tech community**
-
-*Version 3.0 - Advanced ERW city viability analysis with 20-parameter assessment and 2025 industry research*
+**🌍 ERW City Viability Analysis Platform** - Advancing Enhanced Rock Weathering through data-driven metropolitan assessment and global research collaboration.

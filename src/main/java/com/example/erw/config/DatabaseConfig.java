@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.net.URI;
 
 @Configuration
 public class DatabaseConfig {
@@ -18,22 +19,47 @@ public class DatabaseConfig {
         String databaseUrl = System.getenv("DATABASE_URL");
         
         if (databaseUrl != null && databaseUrl.startsWith("postgresql://")) {
-            // Convert Render's postgresql:// URL to JDBC format
-            // Format: postgresql://user:pass@host:port/db -> jdbc:postgresql://host:port/db
-            databaseUrl = databaseUrl.replace("postgresql://", "jdbc:postgresql://");
-            
-            // Ensure proper format for PostgreSQL driver
-            if (!databaseUrl.contains(":5432/") && !databaseUrl.matches(".*:\\d+/.*")) {
-                // If no port specified, add default PostgreSQL port
-                String[] parts = databaseUrl.split("@");
-                if (parts.length == 2) {
-                    String[] hostDb = parts[1].split("/");
-                    if (hostDb.length == 2) {
-                        databaseUrl = parts[0] + "@" + hostDb[0] + ":5432/" + hostDb[1];
-                    }
+            try {
+                // Parse the Render PostgreSQL URL using URI
+                URI uri = URI.create(databaseUrl);
+                
+                // Extract components
+                String host = uri.getHost();
+                int port = uri.getPort() != -1 ? uri.getPort() : 5432;
+                String database = uri.getPath().substring(1); // Remove leading /
+                String userInfo = uri.getUserInfo();
+                
+                // Reconstruct as JDBC URL without credentials (they're handled separately)
+                String jdbcUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+                
+                // Extract username and password for DataSource
+                String username = null;
+                String password = null;
+                if (userInfo != null && userInfo.contains(":")) {
+                    String[] credentials = userInfo.split(":", 2);
+                    username = credentials[0];
+                    password = credentials[1];
                 }
+                
+                System.out.println("DEBUG: Original URL: " + databaseUrl);
+                System.out.println("DEBUG: Parsed JDBC URL: " + jdbcUrl);
+                System.out.println("DEBUG: Username: " + username);
+                
+                return DataSourceBuilder.create()
+                        .url(jdbcUrl)
+                        .username(username)
+                        .password(password)
+                        .build();
+                        
+            } catch (Exception e) {
+                System.err.println("ERROR parsing DATABASE_URL: " + e.getMessage());
+                e.printStackTrace();
+                // Fall back to localhost
+                databaseUrl = "jdbc:postgresql://localhost:5432/erwdb";
             }
-        } else if (databaseUrl == null) {
+        }
+        
+        if (databaseUrl == null) {
             // Fallback for local development
             databaseUrl = "jdbc:postgresql://localhost:5432/erwdb";
         }

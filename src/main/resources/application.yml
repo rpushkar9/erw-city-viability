@@ -15,5 +15,4 @@ spring:
     show-sql: false
   sql:
     init:
-      mode: always
-      continue-on-error: true
+      mode: never

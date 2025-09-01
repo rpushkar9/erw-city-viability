@@ -1,7 +1,7 @@
 services:
   - type: web
     name: erw-city-viability
-    env: java
+    runtime: java
     buildCommand: "./mvnw clean package -DskipTests"
     startCommand: "java -Dserver.port=$PORT -jar target/*.jar"
     plan: free

@@ -22,7 +22,7 @@ RUN ./mvnw clean package -DskipTests
 # Production stage
 FROM eclipse-temurin:21-jre-alpine
 
-# Install curl for health checks
+# Install curl (optional for debugging)
 RUN apk add --no-cache curl
 
 # Create app user
@@ -43,10 +43,6 @@ USER spring
 
 # Expose port
 EXPOSE $PORT
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-8080}/api/health || exit 1
 
 # Run the application
 CMD ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar app.jar"]

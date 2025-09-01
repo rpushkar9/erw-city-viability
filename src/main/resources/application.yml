@@ -4,6 +4,9 @@ server:
 spring:
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/erwdb}
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 5
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,3 +17,4 @@ spring:
   sql:
     init:
       mode: always
+      continue-on-error: true

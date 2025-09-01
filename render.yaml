@@ -5,22 +5,14 @@ services:
     dockerfilePath: ./Dockerfile
     plan: free
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: erw-postgres
-          property: connectionString
       - key: DB_URL
         fromDatabase:
           name: erw-postgres
           property: connectionString
-      - key: DB_USER
+      - key: DATABASE_URL
         fromDatabase:
           name: erw-postgres
-          property: user
-      - key: DB_PASS
-        fromDatabase:
-          name: erw-postgres
-          property: password
+          property: connectionString
 
 databases:
   - name: erw-postgres

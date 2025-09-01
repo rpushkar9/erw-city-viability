@@ -19,7 +19,20 @@ public class DatabaseConfig {
         
         if (databaseUrl != null && databaseUrl.startsWith("postgresql://")) {
             // Convert Render's postgresql:// URL to JDBC format
-            databaseUrl = "jdbc:" + databaseUrl;
+            // Format: postgresql://user:pass@host:port/db -> jdbc:postgresql://host:port/db
+            databaseUrl = databaseUrl.replace("postgresql://", "jdbc:postgresql://");
+            
+            // Ensure proper format for PostgreSQL driver
+            if (!databaseUrl.contains(":5432/") && !databaseUrl.matches(".*:\\d+/.*")) {
+                // If no port specified, add default PostgreSQL port
+                String[] parts = databaseUrl.split("@");
+                if (parts.length == 2) {
+                    String[] hostDb = parts[1].split("/");
+                    if (hostDb.length == 2) {
+                        databaseUrl = parts[0] + "@" + hostDb[0] + ":5432/" + hostDb[1];
+                    }
+                }
+            }
         } else if (databaseUrl == null) {
             // Fallback for local development
             databaseUrl = "jdbc:postgresql://localhost:5432/erwdb";

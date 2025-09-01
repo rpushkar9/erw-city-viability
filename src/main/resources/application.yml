@@ -3,9 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/erwdb}
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/erwdb}
   jpa:
     hibernate:
       ddl-auto: update

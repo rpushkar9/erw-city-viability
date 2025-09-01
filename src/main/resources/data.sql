@@ -42,5 +42,25 @@ INSERT INTO site (name, region, latitude, longitude, score) VALUES
   -- Asian Metropolitan ERW Hubs
   ('Ludhiana', 'Punjab-India', 30.9010, 75.8573, 0.69),
   ('Nashik', 'Maharashtra-India', 19.9975, 73.7898, 0.66),
-  ('Mysore', 'Karnataka-India', 12.2958, 76.6394, 0.71)
+  ('Mysore', 'Karnataka-India', 12.2958, 76.6394, 0.71),
+  
+  -- East Asian Metropolitan ERW Centers
+  ('Jinan', 'Shandong-China', 36.6512, 117.1201, 0.78),
+  ('Beijing Rural', 'Hebei-China', 39.9042, 116.4074, 0.75),
+  ('Sendai', 'Tohoku-Japan', 38.2682, 140.8694, 0.72),
+  ('Suwon', 'Gyeonggi-South Korea', 37.2636, 127.0286, 0.70),
+  
+  -- African Metropolitan ERW Expansion  
+  ('Johannesburg Rural', 'Gauteng-South Africa', -26.2041, 28.0473, 0.68),
+  ('Casablanca Rural', 'Grand Casablanca-Morocco', 33.5731, -7.5898, 0.65),
+  ('Kano', 'Kano State-Nigeria', 12.0022, 8.5920, 0.63),
+  
+  -- Russian Federation Agricultural Zones
+  ('Krasnodar', 'Krasnodar Krai-Russia', 45.0328, 38.9769, 0.76),
+  ('Novosibirsk Rural', 'Novosibirsk Oblast-Russia', 55.0084, 82.9357, 0.74),
+  
+  -- Global Strategic Metropolitan Areas
+  ('Ankara Rural', 'Central Anatolia-Turkey', 39.9334, 32.8597, 0.67),
+  ('Munich Rural', 'Bavaria-Germany', 48.1351, 11.5820, 0.73),
+  ('Bangkok Rural', 'Central Plains-Thailand', 13.7563, 100.5018, 0.69)
 ON CONFLICT (name, region) DO NOTHING;

@@ -14,7 +14,7 @@ This platform analyzes Enhanced Rock Weathering (ERW) viability for major cities
 - **🌍 Environmental Impact** - CO₂ emissions vs removal analysis with efficiency metrics
 - **📈 Industry Data** - Based on 2024 research from leading ERW companies
 - **🎯 Sustainability Grading** - A+ to F rating system using industry benchmarks
-- **🌐 15 Global Cities** - Major metropolitan areas across India, USA, Europe, Australia, and Africa
+- **🌐 45 Global Metropolitan Areas** - Comprehensive coverage across 21 countries and 6 continents
 
 ## 🚀 Quick Start
 
@@ -213,7 +213,7 @@ src/
 │   │   ├── css/styles.css               # Responsive design
 │   │   └── js/app.js                    # Interactive features
 │   ├── application.yml                  # Configuration
-│   └── data.sql                         # 15 global sites
+│   └── data.sql                         # 45 global metropolitan areas
 └── test/java/                           # Unit tests
 ```
 
@@ -284,7 +284,7 @@ services:
 
 - **Response Time**: <200ms for scoring calculations
 - **Concurrent Users**: Supports 100+ simultaneous users
-- **Database**: 15 sites with potential for thousands
+- **Database**: 45 metropolitan areas with global expansion potential
 - **Memory Usage**: ~512MB typical Spring Boot footprint
 - **Storage**: <100MB including static assets
 

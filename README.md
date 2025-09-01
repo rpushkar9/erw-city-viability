@@ -3,6 +3,8 @@
 > **Enhanced Rock Weathering Metropolitan Assessment Tool**  
 > A comprehensive Spring Boot application for evaluating ERW project viability across global metropolitan areas using research-based 20-parameter assessment.
 
+🌐 **[Live Demo: https://erw-city-viability-1.onrender.com/](https://erw-city-viability-1.onrender.com/)**
+
 ## 🌍 Overview
 
 This platform provides scientific assessment of Enhanced Rock Weathering (ERW) potential for metropolitan areas and their agricultural hinterlands worldwide. Built with Spring Boot 3.3.2 and Java 21, it features an interactive web interface, comprehensive scoring algorithms, and RESTful API for ERW project evaluation.
@@ -13,6 +15,8 @@ This platform provides scientific assessment of Enhanced Rock Weathering (ERW) p
 - **Interactive Web Interface** with global mapping and detailed analysis
 - **RESTful API** for programmatic access and integration
 - **Cost & Environmental Analysis** with CO₂ calculations
+
+**🚀 Live Platform:** [https://erw-city-viability-1.onrender.com](https://erw-city-viability-1.onrender.com/)
 
 ## 🏗️ Architecture
 
@@ -114,9 +118,13 @@ export DB_PASS=your_password
 
 ## 🌐 API Documentation
 
-### Base URL
+### Base URLs
 ```
+# Local Development
 http://localhost:8080/api
+
+# Live Demo
+https://erw-city-viability-1.onrender.com/api
 ```
 
 ### Endpoints
@@ -133,9 +141,13 @@ GET /api/sites
 - `page` (optional) - Page number (default: `0`)
 - `size` (optional) - Page size 1-100 (default: `20`)
 
-**Example:**
+**Examples:**
 ```bash
+# Local development
 curl "http://localhost:8080/api/sites?region=California-USA&sort=score&dir=desc"
+
+# Live demo
+curl "https://erw-city-viability-1.onrender.com/api/sites?region=California-USA&sort=score&dir=desc"
 ```
 
 **Response:**
